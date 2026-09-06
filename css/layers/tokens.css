@@ -72,8 +72,8 @@
     --sp-7: 6rem;
     --sp-8: 9rem;
 
-    --container: 78rem;
-    --gutter: clamp(0.85rem, 1.6vw, 1.15rem);
+    --container: 84rem;
+    --gutter: clamp(0.35rem, 0.9vw, 0.5rem);
     --section-y: var(--sp-7);
 
     /* ---- Border / radius ---- */
