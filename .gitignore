@@ -1,0 +1,7 @@
+.DS_Store
+.playwright-mcp/
+node_modules/
+*.log
+
+# source catalogue (not deployed; compressed copy lives in catalogue/)
+EvoEarth Living Amenities Catalogue.pdf

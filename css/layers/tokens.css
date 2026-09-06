@@ -1,0 +1,96 @@
+@layer tokens {
+  :root {
+    /* ---- Colour (near-black + warm ink; oxblood accent, brass structure) ---- */
+    --ink:        #0a0908;   /* near-black — dominant field */
+    --ink-2:      #191310;   /* raised surface on ink (footer, submenu) */
+    --ink-3:      #241b16;   /* card / high-raise surface, framed-media ground */
+    --ink-hi:     #241713;   /* warm haze — top of the ambient gradient */
+    --paper:      #f5f2ec;   /* warm ink / off-white */
+    --paper-2:    #ede7db;   /* dim paper — alternating bands */
+    --kraft:      #c9a36b;   /* brass — frames, rules, hairlines, kicker */
+    --line-paper: #ddd5c6;   /* hairline on paper */
+    --line-ink:   rgba(201, 163, 107, 0.24);
+
+    /* accent — oxblood. The one bold colour: primary CTA + selection only. */
+    --accent:        #6e1f23;  /* oxblood — CTA fill, reads on both fields */
+    --accent-hi:     #8a2930;  /* oxblood, lifted — top of the CTA gradient */
+    --accent-lo:     #571a1e;  /* oxblood, deepened — foot of the CTA gradient */
+    --accent-hover:  #86262c;  /* oxblood, lifted, for :hover */
+    --accent-ink:    #c25055;  /* oxblood as it reads for text/lines on the dark field */
+
+    /* ---- Gradients — depth cues, same-hue, low delta ---- */
+    /* ambient near-black: warm haze up top fading into the field (hero, page ground) */
+    --grad-field: radial-gradient(135% 90% at 50% -10%, var(--ink-hi) 0%, #100b09 42%, var(--ink) 78%);
+    /* stacked ink sections: a gentle lit-top / dark-foot wash so slabs read apart */
+    --grad-ink:   linear-gradient(180deg, #140e0b 0%, var(--ink) 55%, #080605 100%);
+    --grad-ink-2: linear-gradient(180deg, #1c1512 0%, #120c0a 100%);
+    /* paper: a whisper of warm light from the top */
+    --grad-paper:   linear-gradient(180deg, #f8f5f0 0%, #f2eee5 100%);
+    --grad-paper-2: linear-gradient(180deg, #f1ebe0 0%, #e8e1d3 100%);
+    /* oxblood CTA sheen + its hover */
+    --grad-cta:       linear-gradient(165deg, var(--accent-hi) 0%, var(--accent) 52%, var(--accent-lo) 100%);
+    --grad-cta-hover: linear-gradient(165deg, #9c3038 0%, #7f262c 52%, #661f24 100%);
+    /* brass rule that fades at both ends */
+    --grad-rule: linear-gradient(90deg, transparent, var(--kraft) 12%, var(--kraft) 88%, transparent);
+    /* top-lit lift on cards */
+    --grad-card-ink:   linear-gradient(180deg, var(--ink-3) 0%, rgba(36, 27, 22, 0) 45%);
+    --grad-card-paper: linear-gradient(180deg, #fdfbf7 0%, rgba(253, 251, 247, 0) 55%);
+    --grad-header:     linear-gradient(180deg, #110c0a 0%, var(--ink) 100%);
+    /* cursor-follow glow (js/modules/glow.js) */
+    --glow: rgba(216, 122, 128, 0.5);        /* on the oxblood CTA */
+    --cursor-glow: rgba(150, 40, 44, 0.55); /* page-wide ambient, screen-blended — oxblood-tinted */
+
+    /* slate midtones — muted text */
+    --text-on-paper:        var(--ink);
+    --text-on-paper-muted:  #54585c;
+    --text-on-ink:          var(--paper);
+    --text-on-ink-muted:    rgba(245, 242, 236, 0.70);
+
+    /* ---- Type ---- */
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system,
+      "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    --step--1: clamp(0.83rem, 0.80rem + 0.14vw, 0.9rem);
+    --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
+    --step-1:  clamp(1.2rem, 1.09rem + 0.5vw, 1.5rem);
+    --step-2:  clamp(1.5rem, 1.29rem + 1vw, 2.1rem);
+    --step-3:  clamp(2rem, 1.6rem + 1.9vw, 3.1rem);
+    --step-4:  clamp(2.6rem, 1.9rem + 3.4vw, 4.9rem);
+
+    --lh-display: 1.05;
+    --lh-body: 1.6;
+    --measure: 62ch;
+
+    /* ---- Space ---- */
+    --sp-1: 0.5rem;
+    --sp-2: 0.75rem;
+    --sp-3: 1rem;
+    --sp-4: 1.5rem;
+    --sp-5: 2.5rem;
+    --sp-6: 4rem;
+    --sp-7: 6rem;
+    --sp-8: 9rem;
+
+    --container: 74rem;
+    --gutter: clamp(1rem, 3.5vw, 2.25rem);
+    --section-y: var(--sp-7);
+
+    /* ---- Border / radius ---- */
+    --radius: 2px;
+    --frame: 1px solid var(--kraft);
+    --frame-inset: 4px;
+
+    /* ---- Motion (STUB — spec 09) ---- */
+    --dur: 0.5s;
+    --dur-fast: 0.2s;
+    --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+
+  @media (max-width: 60rem) {
+    :root { --section-y: var(--sp-6); }
+  }
+  @media (max-width: 40rem) {
+    :root { --section-y: var(--sp-5); --frame-inset: 2px; }
+  }
+}

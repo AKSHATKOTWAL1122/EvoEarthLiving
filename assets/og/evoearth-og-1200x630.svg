@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="EvoEarth Living">
+  <rect width="1200" height="630" fill="#2b2119"/>
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#c9a87c" stroke-width="1"/>
+  <text x="100" y="300" font-family="Georgia, serif" font-size="86" fill="#efece6">EvoEarth <tspan font-style="italic" fill="#c9a87c">Living</tspan></text>
+  <text x="103" y="360" font-family="Georgia, serif" font-size="30" fill="#c9a87c" letter-spacing="2">Guest amenities, made to your brand</text>
+  <text x="103" y="410" font-family="Georgia, serif" font-size="22" fill="#a99f8f">Dry · Wet · Aroma  —  Srinagar · Jammu</text>
+</svg>

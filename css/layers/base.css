@@ -1,0 +1,60 @@
+@layer base {
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  body {
+    background-color: var(--ink);
+    color: var(--text-on-paper);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    font-weight: 400;
+    line-height: var(--lh-body);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 380;
+    line-height: var(--lh-display);
+    letter-spacing: -0.005em;
+    font-variation-settings: "opsz" 120;
+  }
+  h1 { font-size: var(--step-4); font-weight: 360; }
+  h2 { font-size: var(--step-3); }
+  h3 { font-size: var(--step-1); }
+
+  a { text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+
+  p a {
+    text-decoration: underline;
+    text-decoration-color: var(--kraft);
+  }
+  p a:hover { text-decoration-color: currentColor; }
+
+  strong { font-weight: 600; }
+
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  :focus-visible {
+    outline: 2px solid var(--kraft);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  /* reveal: JS adds .is-armed to <html> on load and toggles .is-visible as each
+     [data-reveal] enters or leaves the viewport — so a section eases up from
+     nothing on the way down and again on the way back up, every time. Without JS
+     or with reduced motion the final state shows immediately. */
+  @media (prefers-reduced-motion: no-preference) {
+    html.is-armed [data-reveal] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
+    }
+    html.is-armed [data-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

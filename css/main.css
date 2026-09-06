@@ -1,0 +1,17 @@
+/* EvoEarth Living — stylesheet entry.
+   Layer order below sets cascade priority (later layer wins ties).
+   Each imported file wraps its rules in the matching @layer block.
+   Paths are root-relative: Chrome's preload scanner resolves @import URLs
+   against the document, not this sheet, so a bare relative path 404s once
+   before the real load corrects it. */
+@layer reset, fonts, tokens, base, layout, components, utilities;
+
+/* ?v bumped on every CSS change so browsers refetch instead of serving a stale
+   @import from cache. */
+@import "/css/layers/reset.css?v=5";
+@import "/css/layers/fonts.css?v=5";
+@import "/css/layers/tokens.css?v=5";
+@import "/css/layers/base.css?v=5";
+@import "/css/layers/layout.css?v=5";
+@import "/css/layers/components.css?v=5";
+@import "/css/layers/utilities.css?v=5";
