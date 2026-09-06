@@ -5,13 +5,11 @@
 const MOBILE_QUERY = "(max-width: 60rem)";
 const isMobile = () => window.matchMedia(MOBILE_QUERY).matches;
 
-function initDropdown(header) {
-  const wrap = header.querySelector(".has-menu");
-  if (!wrap) return;
+function initDropdown(wrap) {
   const btn = wrap.querySelector("button");
   const menu = wrap.querySelector(".submenu");
   if (!btn || !menu) {
-    console.warn("[nav] Products dropdown markup incomplete");
+    console.warn("[nav] dropdown markup incomplete");
     return;
   }
 
@@ -204,7 +202,7 @@ export function initNav() {
     console.warn("[nav] .site-header not found");
     return;
   }
-  initDropdown(header);
+  header.querySelectorAll(".has-menu").forEach(initDropdown);
   initMobilePanel(header);
   initScrolledState(header);
   initAutoHide(header);

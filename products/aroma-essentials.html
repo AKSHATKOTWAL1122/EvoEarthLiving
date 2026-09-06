@@ -44,15 +44,15 @@
   </style>
 
   <!-- Fetch the @layer files in parallel instead of discovering them serially through main.css. -->
-  <link rel="preload" href="/css/layers/reset.css?v=12" as="style">
-  <link rel="preload" href="/css/layers/fonts.css?v=12" as="style">
-  <link rel="preload" href="/css/layers/tokens.css?v=12" as="style">
-  <link rel="preload" href="/css/layers/base.css?v=12" as="style">
-  <link rel="preload" href="/css/layers/layout.css?v=12" as="style">
-  <link rel="preload" href="/css/layers/components.css?v=12" as="style">
-  <link rel="preload" href="/css/layers/utilities.css?v=12" as="style">
-  <link rel="stylesheet" href="/css/main.css?v=12">
-  <script type="module" src="/js/main.js?v=12"></script>
+  <link rel="preload" href="/css/layers/reset.css?v=13" as="style">
+  <link rel="preload" href="/css/layers/fonts.css?v=13" as="style">
+  <link rel="preload" href="/css/layers/tokens.css?v=13" as="style">
+  <link rel="preload" href="/css/layers/base.css?v=13" as="style">
+  <link rel="preload" href="/css/layers/layout.css?v=13" as="style">
+  <link rel="preload" href="/css/layers/components.css?v=13" as="style">
+  <link rel="preload" href="/css/layers/utilities.css?v=13" as="style">
+  <link rel="stylesheet" href="/css/main.css?v=13">
+  <script type="module" src="/js/main.js?v=13"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -73,7 +73,19 @@
               <li><a href="/products/wet-amenities.html#face-body">Face &amp; Body</a></li>
             </ul>
           </li>
-          <li><a href="/products/dry-amenities.html">Dry Amenities</a></li>
+          <li class="has-menu">
+            <button aria-expanded="false" aria-controls="menu-dry">Dry Amenities</button>
+            <ul id="menu-dry" class="submenu">
+              <li><a href="/products/dry-amenities.html">All Dry Amenities</a></li>
+              <li><a href="/products/dry-amenities.html#dental-kit">Dental Kit</a></li>
+              <li><a href="/products/dry-amenities.html#shaving-kit">Shaving Kit</a></li>
+              <li><a href="/products/dry-amenities.html#comb-hair-oil">Comb &amp; Hair Oil</a></li>
+              <li><a href="/products/dry-amenities.html#accessories">Accessories</a></li>
+              <li><a href="/products/dry-amenities.html#intimate-repair">Intimate &amp; Repair</a></li>
+              <li><a href="/products/dry-amenities.html#housekeeping">Housekeeping</a></li>
+              <li><a href="/products/dry-amenities.html#spa-slippers">Spa Slippers</a></li>
+            </ul>
+          </li>
           <li><a href="/products/aroma-essentials.html" aria-current="page">Aroma Essentials</a></li>
         </ul>
         <a class="btn btn--wa primary__cta" data-wa>Enquire on WhatsApp</a>

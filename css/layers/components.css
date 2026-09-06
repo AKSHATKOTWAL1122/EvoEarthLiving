@@ -78,17 +78,6 @@
   .primary a[aria-current] { border-bottom-color: var(--kraft); }
 
   .has-menu { position: relative; }
-  .has-menu > button::after {
-    content: "";
-    display: inline-block;
-    width: 0.42em; height: 0.42em;
-    margin-left: 0.5em;
-    border-right: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
-    transform: translateY(-0.15em) rotate(45deg);
-    transition: transform var(--dur-fast) var(--ease);
-  }
-  .has-menu > button[aria-expanded="true"]::after { transform: translateY(0.1em) rotate(225deg); }
 
   .submenu {
     position: absolute;
@@ -128,10 +117,14 @@
     opacity: 1;
     transform: translateY(0);
   }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(1) { transition-delay: 0.12s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(2) { transition-delay: 0.28s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(3) { transition-delay: 0.44s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(4) { transition-delay: 0.6s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(1) { transition-delay: 0.08s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(2) { transition-delay: 0.16s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(3) { transition-delay: 0.24s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(4) { transition-delay: 0.32s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(5) { transition-delay: 0.4s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(6) { transition-delay: 0.48s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(7) { transition-delay: 0.56s; }
+  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(8) { transition-delay: 0.64s; }
 
   @media (prefers-reduced-motion: reduce) {
     html:not(.no-js) .has-menu > .submenu,
