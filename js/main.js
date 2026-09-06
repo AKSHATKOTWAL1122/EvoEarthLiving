@@ -1,11 +1,11 @@
 // Entry point. Loaded as <script type="module" src="/js/main.js"> on every page.
 
-import { initContact } from "./modules/contact.js?v=7";
-import { initNav } from "./modules/nav.js?v=7";
-import { initReveal } from "./modules/reveal.js?v=7";
-import { initRangeOverview } from "./modules/products.js?v=7";
-import { initCategoryPage } from "./modules/category.js?v=7";
-import { initGlow } from "./modules/glow.js?v=7";
+import { initContact } from "./modules/contact.js?v=8";
+import { initNav } from "./modules/nav.js?v=8";
+import { initReveal } from "./modules/reveal.js?v=8";
+import { initRangeOverview } from "./modules/products.js?v=8";
+import { initCategoryPage } from "./modules/category.js?v=8";
+import { initGlow } from "./modules/glow.js?v=8";
 
 const run = () => {
   document.documentElement.classList.remove("no-js");

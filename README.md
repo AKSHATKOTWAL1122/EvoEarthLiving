@@ -69,10 +69,20 @@ specs/                         one spec per component (00-13) + STATUS.md + BUIL
   dropdown, reveal-on-scroll).
 - Two CTAs everywhere: WhatsApp enquiry (primary) and Download catalogue. No contact form.
 
-## Deploy (Hostinger)
+## Deploy (Netlify)
 
-Upload the **contents** of this folder to `public_html` so `index.html` sits at the web root.
-No build step. `specs/` and the source PDF can be left out of the upload.
+Netlify is the production host for `evoearth.living`. Config is in `netlify.toml`
+(`publish = "."`, no build command) — it serves the repo root as-is and sets the
+cache headers for `/assets`, `/css`, `/js`.
+
+- **Deploy:** push to `main` (or connect the repo in the Netlify dashboard); every
+  push publishes. No build step to run locally.
+- **Custom domain + HTTPS:** configured in the Netlify dashboard, not in the repo.
+- Bump the `?v=N` query on the CSS/JS URLs (all 4 HTML files + `css/main.css` +
+  `js/main.js`) whenever CSS or JS changes, so browsers refetch instead of serving
+  a stale `@import` from cache.
+- `specs/`, `References/` and the source PDF are published too (harmless); exclude
+  them with a Netlify ignore rule if that matters later.
 
 ## Status
 

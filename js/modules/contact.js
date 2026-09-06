@@ -1,6 +1,7 @@
 // Wires every contact CTA on the page from js/data/site.js.
-// Markup opts in with data attributes; text is left in the HTML as a no-JS fallback
-// and only replaced if empty.
+// Markup opts in with data attributes. The HTML carries the phone / email /
+// locations / year text as a static no-JS fallback; this module re-syncs it from
+// site.js so that file stays the single source of truth.
 //   [data-wa]         -> WhatsApp deep link
 //   [data-wa-msg]     -> optional custom prefilled message (overrides default)
 //   [data-catalogue]  -> catalogue PDF, opens in a new tab
@@ -32,14 +33,16 @@ export function initContact(root = document) {
     }
   });
 
+  // Text is always synced from site.js so it stays the single source of truth.
+  // The HTML carries the same value as a static fallback for no-JS visitors.
   root.querySelectorAll("[data-call]").forEach((el) => {
     setHref(el, telHref());
-    if (!el.textContent.trim()) el.textContent = SITE.phoneSecondaryDisplay;
+    el.textContent = SITE.phoneSecondaryDisplay;
   });
 
   root.querySelectorAll("[data-email]").forEach((el) => {
     setHref(el, mailHref());
-    if (!el.textContent.trim()) el.textContent = SITE.email;
+    el.textContent = SITE.email;
   });
 
   root.querySelectorAll("[data-year]").forEach((el) => {
@@ -47,6 +50,6 @@ export function initContact(root = document) {
   });
 
   root.querySelectorAll("[data-locations]").forEach((el) => {
-    if (!el.textContent.trim()) el.textContent = SITE.locations;
+    el.textContent = SITE.locations;
   });
 }

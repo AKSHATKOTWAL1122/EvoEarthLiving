@@ -7,13 +7,13 @@ Legend: `·` not started · `~` partial · `x` done
 |----|-------------------------|-------------------|:------:|:-----:|:--------:|:--------:|-------|
 | 00 | design-system-tokens    | all               |   x    |   x   |    x     |    ~     | `reset/fonts/tokens/base/main.css`; Fraunces + Hanken self-hosted. **Palette locked S3**: near-black / warm-ink / oxblood accent / brass structure / slate muted + `--grad-*` depth gradients. axe AA 0. Motion tokens still stub |
 | 01 | layout-shell-nav        | all               |   x    |   x   |    ·     |    ·     | header/footer shell on all 4 pages; current category marked `aria-current="page"` |
-| 02 | hero                    | home              |   x    |   x   |    ·     |    ·     | built in `index.html` (uses `scene.svg` placeholder — no `hero-1280x1600.svg` yet) |
+| 02 | hero                    | home              |   x    |   x   |    ·     |    ·     | built in `index.html`; uses `/assets/img/photos/home/hero.png` (interim art, awaiting final client photography per spec 14) |
 | 03 | about                   | home              |   x    |   x   |    ·     |    ·     | verbatim catalogue p2 text in `index.html` |
 | 04 | product-range-overview  | home              |   x    |   x   |    ·     |    ·     | no-JS fallback list + `data-range-list` in `index.html`; `products.js` upgrades |
 | 05 | category-page-template  | dry / wet / aroma |   x    |   x   |    x     |    ·     | 3 HTML pages built; `category.js` renders all subcats + items + cross-links; verified in Playwright (dry 7/25, wet 3/11, aroma 2/7; console clean) |
 | 06 | who-we-serve            | home              |   x    |   x   |    ·     |    ·     | built in `index.html`; no trust-metric rows (placeholder comment left) |
 | 07 | ordering-process        | home              |   x    |   x   |    ·     |    ·     | 4-step `<ol>` counter timeline in `index.html` |
-| 08 | contact-footer          | all               |   x    |   x   |    ·     |    ·     | `#contact` on home; identical footer on all 4 pages; all values from `site.js` |
+| 08 | contact-footer          | all               |   x    |   x   |    ·     |    ·     | `#contact` on home; near-identical footer on all 4 pages (home adds the wholesale line); values from `site.js`, with static phone/email/locations/year fallbacks in the HTML for no-JS |
 | 09 | motion                  | all               |   ~    |   x   |    x     |    ·     | STUB spec (overall level TBD). `reveal.js` + reveal rules. **S3: cursor-follow glow built** (`js/modules/glow.js`) — oxblood-CTA highlight + page-wide ambient (screen blend, lifts the near-black), both eased/lagged, hover+motion-OK only. axe AA 0, console clean |
 | 10 | responsive-mobile       | all               |   x    |   x   |    x     |    ·     | Playwright pass 320/390/768/1440 on all 4 pages: no h-scroll, h1 never overflows, single h1. Fixed: card-image blow-up, list bullets, hero h1 squeeze, mobile-panel focus. Screenshots not archived |
 | 11 | performance-meta-seo    | all               |   x    |   x   |    ·     |    ·     | per-page title/desc/canonical/robots/theme-color/OG; Organization JSON-LD (home) + BreadcrumbList (3 cat pages), all parse OK; `robots.txt` + `sitemap.xml` (lastmod 2026-09-06). `favicon.ico` still pending (using icon.svg + png). No Lighthouse run yet |
@@ -34,9 +34,10 @@ css/main.css
 css/layers/       reset, fonts, tokens, base, layout, components, utilities .css
 js/main.js
 js/data/          site.js, products.js
-js/modules/       contact.js, nav.js, reveal.js, products.js, category.js
+js/modules/       contact.js, nav.js, reveal.js, products.js, category.js, glow.js
 assets/fonts/     fraunces-var[-italic|-ext].woff2, hanken-var[-ext].woff2
-assets/img/placeholders/  item.svg, scene.svg
+assets/img/placeholders/  item.svg
+assets/img/photos/  {home,dry,wet,aroma}/ — interim hero.png / card.png (spec 14 pending)
 assets/favicon/   icon.svg, favicon-32.png, apple-touch-icon.png
 assets/og/        evoearth-og-1200x630.png (+ .svg source)
 catalogue/        evoearth-catalogue.pdf  (651-byte placeholder)
@@ -54,6 +55,25 @@ favicon.ico   (icon.svg + favicon-32.png + apple-touch-icon.png in place)
 4. ~~Local server + Playwright pass at 320/390/768/1440; a11y tree; contrast~~ — **done 2026-09-06**. ~~Spec 12: axe run + keyboard walk~~ — **done 2026-09-06** (axe 0 violations ×4 pages, dropdown + mobile-panel keyboard walk, panel `inert`). Lighthouse still not run.
 5. ~~`README.md`, then grade against parent $10K checklist~~ — **done 2026-09-06** (`README.md`, `specs/GRADE.md`). Also fixed `Assets/` → `assets/` casing (deploy-blocking on Linux).
 6. Remaining before launch: client assets (photography per `specs/14-imagery.md`, logo, accent/motion refs, compressed PDF) → then polish pass + Lighthouse + `favicon.ico`.
+
+## Session 4 (2026-09-06) — codebase cleanup + deploy decision
+- **CSS cache-buster bug fixed** — `css/main.css` `@import`s were pinned at `?v=5`
+  while the HTML `<link>`s were `?v=7`, so every layer file downloaded twice and
+  the preloads were wasted. All asset URLs now bumped in lockstep to **`?v=8`**
+  (4 HTML files + `main.css` + `main.js`).
+- **Dead code removed** — `SCENE` const + `assets/img/placeholders/scene.svg`
+  (unreferenced), `groupBySlug()` export (unused), `.visually-hidden` +
+  `.container-narrow` CSS (unused).
+- **Orphan files removed** — 7 `.DS_Store`, `.playwright-mcp/`.
+- **Deploy target decided: Netlify** (`netlify.toml`). Dropped the GitHub Pages
+  path — deleted `.github/workflows/deploy.yml`, `.nojekyll`, `CNAME` (which
+  pointed at `preview.evoearth.living`, contradicting every canonical URL).
+  README + CLAUDE.md deploy sections rewritten.
+- **No-JS contact fallback** — `[data-call]`/`[data-email]`/`[data-locations]`/
+  `[data-year]` now ship with static text in the HTML; `contact.js` always
+  re-syncs from `site.js` (still the single source of truth).
+- **Shared header/footer guard** — HTML comment above each marking it duplicated
+  across the 4 pages ("edit all 4 together").
 
 ## Session 3 (2026-09-06) — palette lock + gradients
 - **Palette changed & locked** (client supplied via ui-ux pass): near-black

@@ -106,8 +106,11 @@ Full review + per-item status in **`specs/REVIEW-kimirica.md`**. State:
 - After the first full build, self-grade against the parent $10K checklist.
 
 ## Deployment
-- Hostinger, domain `evoearth.living`. Deploy by uploading the **contents** of this folder
-  to `public_html`. No build step to run.
+- Netlify, domain `evoearth.living`. Config in `netlify.toml` (`publish = "."`, no
+  build command). Every push to `main` publishes; no build step to run. Custom
+  domain + HTTPS are set in the Netlify dashboard.
+- Single host — the earlier GitHub Pages (`deploy.yml`, `.nojekyll`, `CNAME`) and
+  Hostinger paths were dropped 2026-09-06.
 
 ## Assets pending from client (placeholders ship first)
 Compressed catalogue PDF · vector logo (SVG) + small monochrome lockup/favicon ·

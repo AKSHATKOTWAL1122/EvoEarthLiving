@@ -6,7 +6,6 @@
 // assets/img/photos/<group>/ and updating the `image` / `heroImage` paths.
 
 const ITEM = "/assets/img/placeholders/item.svg";
-const SCENE = "/assets/img/placeholders/scene.svg";
 const CARD = {
   dry: "/assets/img/photos/dry/card.png",
   wet: "/assets/img/photos/wet/card.png",
@@ -165,9 +164,6 @@ export const PRODUCT_GROUPS = [
     ],
   },
 ];
-
-export const groupBySlug = (slug) =>
-  PRODUCT_GROUPS.find((g) => g.slug === slug);
 
 export const groupById = (id) => PRODUCT_GROUPS.find((g) => g.id === id);
 

@@ -44,19 +44,20 @@
   </style>
 
   <!-- Fetch the @layer files in parallel instead of discovering them serially through main.css. -->
-  <link rel="preload" href="/css/layers/reset.css?v=7" as="style">
-  <link rel="preload" href="/css/layers/fonts.css?v=7" as="style">
-  <link rel="preload" href="/css/layers/tokens.css?v=7" as="style">
-  <link rel="preload" href="/css/layers/base.css?v=7" as="style">
-  <link rel="preload" href="/css/layers/layout.css?v=7" as="style">
-  <link rel="preload" href="/css/layers/components.css?v=7" as="style">
-  <link rel="preload" href="/css/layers/utilities.css?v=7" as="style">
-  <link rel="stylesheet" href="/css/main.css?v=7">
-  <script type="module" src="/js/main.js?v=7"></script>
+  <link rel="preload" href="/css/layers/reset.css?v=8" as="style">
+  <link rel="preload" href="/css/layers/fonts.css?v=8" as="style">
+  <link rel="preload" href="/css/layers/tokens.css?v=8" as="style">
+  <link rel="preload" href="/css/layers/base.css?v=8" as="style">
+  <link rel="preload" href="/css/layers/layout.css?v=8" as="style">
+  <link rel="preload" href="/css/layers/components.css?v=8" as="style">
+  <link rel="preload" href="/css/layers/utilities.css?v=8" as="style">
+  <link rel="stylesheet" href="/css/main.css?v=8">
+  <script type="module" src="/js/main.js?v=8"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- SHARED HEADER — near-identical across index.html + products/*.html (category pages add aria-current="page"). Edit all 4 together. -->
   <header class="site-header" id="top" role="banner">
     <div class="container site-header__inner">
       <a class="wordmark" href="/">EvoEarth <span>Living</span></a>
@@ -110,6 +111,7 @@
     </div>
   </main>
 
+  <!-- SHARED FOOTER — near-identical across index.html + products/*.html (home footer has the extra wholesale line). Edit all 4 together. -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div>
@@ -134,15 +136,15 @@
         <h2>Contact</h2>
         <ul>
           <li><a data-wa>WhatsApp enquiry</a></li>
-          <li><a data-call></a></li>
-          <li><a data-email></a></li>
+          <li><a data-call>+91 97970 97342</a></li>
+          <li><a data-email>evoearthliving@gmail.com</a></li>
           <li><a data-catalogue>Download catalogue (PDF)</a></li>
         </ul>
-        <p class="site-footer__descr" data-locations></p>
+        <p class="site-footer__descr" data-locations>Srinagar &middot; Jammu, Jammu &amp; Kashmir</p>
       </div>
 
       <div class="site-footer__legal">
-        <span>&copy; <span data-year></span> EvoEarth Living. All rights reserved.</span>
+        <span>&copy; <span data-year>2026</span> EvoEarth Living. All rights reserved.</span>
         <span>We only use the details you send to reply to your enquiry.</span>
         <a class="to-top" href="#top">Back to top</a>
       </div>
