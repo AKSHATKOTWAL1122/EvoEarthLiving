@@ -7,6 +7,10 @@ import { groupById, CUSTOMISATION_NOTE } from "../data/products.js";
 const esc = (s) =>
   String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+// Stable anchor slug for a subcategory name — must match the nav dropdown links.
+export const subcatSlug = (name) =>
+  String(name).toLowerCase().replace(/&/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 const itemCard = (it) => `
   <li class="item-card framed">
     <img src="${it.image}" alt="${esc(it.name)}" width="800" height="800"
@@ -16,7 +20,7 @@ const itemCard = (it) => `
   </li>`;
 
 const subcatSection = (sub) => `
-  <section class="subcat">
+  <section class="subcat" id="${subcatSlug(sub.name)}">
     <div class="container editorial" data-reveal>
       <div class="subcat__head">
         <h2>${esc(sub.name)}</h2>

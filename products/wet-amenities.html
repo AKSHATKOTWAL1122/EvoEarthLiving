@@ -44,15 +44,15 @@
   </style>
 
   <!-- Fetch the @layer files in parallel instead of discovering them serially through main.css. -->
-  <link rel="preload" href="/css/layers/reset.css?v=11" as="style">
-  <link rel="preload" href="/css/layers/fonts.css?v=11" as="style">
-  <link rel="preload" href="/css/layers/tokens.css?v=11" as="style">
-  <link rel="preload" href="/css/layers/base.css?v=11" as="style">
-  <link rel="preload" href="/css/layers/layout.css?v=11" as="style">
-  <link rel="preload" href="/css/layers/components.css?v=11" as="style">
-  <link rel="preload" href="/css/layers/utilities.css?v=11" as="style">
-  <link rel="stylesheet" href="/css/main.css?v=11">
-  <script type="module" src="/js/main.js?v=11"></script>
+  <link rel="preload" href="/css/layers/reset.css?v=12" as="style">
+  <link rel="preload" href="/css/layers/fonts.css?v=12" as="style">
+  <link rel="preload" href="/css/layers/tokens.css?v=12" as="style">
+  <link rel="preload" href="/css/layers/base.css?v=12" as="style">
+  <link rel="preload" href="/css/layers/layout.css?v=12" as="style">
+  <link rel="preload" href="/css/layers/components.css?v=12" as="style">
+  <link rel="preload" href="/css/layers/utilities.css?v=12" as="style">
+  <link rel="stylesheet" href="/css/main.css?v=12">
+  <script type="module" src="/js/main.js?v=12"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -64,7 +64,15 @@
 
       <nav class="primary" id="mobile-nav" aria-label="Primary">
         <ul>
-          <li><a href="/products/wet-amenities.html" aria-current="page">Wet Amenities</a></li>
+          <li class="has-menu">
+            <button aria-expanded="false" aria-controls="menu-wet">Wet Amenities</button>
+            <ul id="menu-wet" class="submenu">
+              <li><a href="/products/wet-amenities.html" aria-current="page">All Wet Amenities</a></li>
+              <li><a href="/products/wet-amenities.html#soaps">Soaps</a></li>
+              <li><a href="/products/wet-amenities.html#hair-care">Hair Care</a></li>
+              <li><a href="/products/wet-amenities.html#face-body">Face &amp; Body</a></li>
+            </ul>
+          </li>
           <li><a href="/products/dry-amenities.html">Dry Amenities</a></li>
           <li><a href="/products/aroma-essentials.html">Aroma Essentials</a></li>
         </ul>
