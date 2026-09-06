@@ -6,7 +6,7 @@ const MOBILE_QUERY = "(max-width: 60rem)";
 const isMobile = () => window.matchMedia(MOBILE_QUERY).matches;
 
 function initDropdown(wrap) {
-  const btn = wrap.querySelector("button");
+  const btn = wrap.querySelector(":scope > button, :scope > a");
   const menu = wrap.querySelector(".submenu");
   if (!btn || !menu) {
     console.warn("[nav] dropdown markup incomplete");
@@ -145,7 +145,7 @@ function initAutoHide(header) {
 
   const paused = () =>
     document.body.classList.contains("no-scroll") || // mobile panel open
-    header.querySelector('.has-menu > button[aria-expanded="true"]'); // dropdown open
+    header.querySelector('.has-menu > [aria-expanded="true"]'); // dropdown open
 
   const update = () => {
     ticking = false;

@@ -106,30 +106,30 @@
     transform: translateY(-0.5rem);
     transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
   }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu {
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scaleY(1);
     transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
   }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li {
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li {
     opacity: 1;
     transform: translateY(0);
   }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(1) { transition-delay: 0.08s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(2) { transition-delay: 0.16s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(3) { transition-delay: 0.24s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(4) { transition-delay: 0.32s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(5) { transition-delay: 0.4s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(6) { transition-delay: 0.48s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(7) { transition-delay: 0.56s; }
-  html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li:nth-child(8) { transition-delay: 0.64s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(1) { transition-delay: 0.08s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(2) { transition-delay: 0.16s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(3) { transition-delay: 0.24s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(4) { transition-delay: 0.32s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(5) { transition-delay: 0.4s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(6) { transition-delay: 0.48s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(7) { transition-delay: 0.56s; }
+  html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li:nth-child(8) { transition-delay: 0.64s; }
 
   @media (prefers-reduced-motion: reduce) {
     html:not(.no-js) .has-menu > .submenu,
     html:not(.no-js) .has-menu > .submenu > li,
-    html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu,
-    html:not(.no-js) .has-menu > button[aria-expanded="true"] + .submenu > li {
+    html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu,
+    html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li {
       transition-duration: 0.01ms;
       transition-delay: 0s;
     }
