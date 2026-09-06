@@ -73,15 +73,15 @@
   </style>
 
   <!-- Fetch the @layer files in parallel instead of discovering them serially through main.css. -->
-  <link rel="preload" href="/css/layers/reset.css?v=13" as="style">
-  <link rel="preload" href="/css/layers/fonts.css?v=13" as="style">
-  <link rel="preload" href="/css/layers/tokens.css?v=13" as="style">
-  <link rel="preload" href="/css/layers/base.css?v=13" as="style">
-  <link rel="preload" href="/css/layers/layout.css?v=13" as="style">
-  <link rel="preload" href="/css/layers/components.css?v=13" as="style">
-  <link rel="preload" href="/css/layers/utilities.css?v=13" as="style">
-  <link rel="stylesheet" href="/css/main.css?v=13">
-  <script type="module" src="/js/main.js?v=13"></script>
+  <link rel="preload" href="/css/layers/reset.css?v=14" as="style">
+  <link rel="preload" href="/css/layers/fonts.css?v=14" as="style">
+  <link rel="preload" href="/css/layers/tokens.css?v=14" as="style">
+  <link rel="preload" href="/css/layers/base.css?v=14" as="style">
+  <link rel="preload" href="/css/layers/layout.css?v=14" as="style">
+  <link rel="preload" href="/css/layers/components.css?v=14" as="style">
+  <link rel="preload" href="/css/layers/utilities.css?v=14" as="style">
+  <link rel="stylesheet" href="/css/main.css?v=14">
+  <script type="module" src="/js/main.js?v=14"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -115,7 +115,14 @@
               <li><a href="/products/dry-amenities.html#spa-slippers">Spa Slippers</a></li>
             </ul>
           </li>
-          <li><a href="/products/aroma-essentials.html">Aroma Essentials</a></li>
+          <li class="has-menu">
+            <button aria-expanded="false" aria-controls="menu-aroma">Aroma Essentials</button>
+            <ul id="menu-aroma" class="submenu">
+              <li><a href="/products/aroma-essentials.html">All Aroma Essentials</a></li>
+              <li><a href="/products/aroma-essentials.html#aroma-care">Aroma Care</a></li>
+              <li><a href="/products/aroma-essentials.html#scented-candles">Scented Candles</a></li>
+            </ul>
+          </li>
         </ul>
         <a class="btn btn--wa primary__cta" data-wa>Enquire on WhatsApp</a>
       </nav>
@@ -274,7 +281,14 @@
           <li><a href="/#range">Products</a></li>
           <li><a href="/products/dry-amenities.html">Dry Amenities</a></li>
           <li><a href="/products/wet-amenities.html">Wet Amenities</a></li>
-          <li><a href="/products/aroma-essentials.html">Aroma Essentials</a></li>
+          <li class="has-menu">
+            <button aria-expanded="false" aria-controls="menu-aroma">Aroma Essentials</button>
+            <ul id="menu-aroma" class="submenu">
+              <li><a href="/products/aroma-essentials.html">All Aroma Essentials</a></li>
+              <li><a href="/products/aroma-essentials.html#aroma-care">Aroma Care</a></li>
+              <li><a href="/products/aroma-essentials.html#scented-candles">Scented Candles</a></li>
+            </ul>
+          </li>
           <li><a href="/#who-we-serve">Who we serve</a></li>
           <li><a href="/#process">How ordering works</a></li>
           <li><a href="/#contact">Contact</a></li>
