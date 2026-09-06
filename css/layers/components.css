@@ -22,7 +22,6 @@
     background-image: var(--grad-header);
     color: var(--text-on-ink);
     border-bottom: 1px solid transparent;
-    will-change: transform;
     transition: transform 0.9s var(--ease),
       border-color var(--dur-fast) var(--ease),
       padding var(--dur-fast) var(--ease);
