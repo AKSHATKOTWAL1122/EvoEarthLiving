@@ -44,59 +44,96 @@
   </style>
 
   <!-- Fetch the @layer files in parallel instead of discovering them serially through main.css. -->
-  <link rel="preload" href="/css/layers/reset.css?v=16" as="style">
-  <link rel="preload" href="/css/layers/fonts.css?v=16" as="style">
-  <link rel="preload" href="/css/layers/tokens.css?v=16" as="style">
-  <link rel="preload" href="/css/layers/base.css?v=16" as="style">
-  <link rel="preload" href="/css/layers/layout.css?v=16" as="style">
-  <link rel="preload" href="/css/layers/components.css?v=16" as="style">
-  <link rel="preload" href="/css/layers/utilities.css?v=16" as="style">
-  <link rel="stylesheet" href="/css/main.css?v=16">
-  <script type="module" src="/js/main.js?v=16"></script>
+  <link rel="preload" href="/css/layers/reset.css?v=18" as="style">
+  <link rel="preload" href="/css/layers/fonts.css?v=18" as="style">
+  <link rel="preload" href="/css/layers/tokens.css?v=18" as="style">
+  <link rel="preload" href="/css/layers/base.css?v=18" as="style">
+  <link rel="preload" href="/css/layers/layout.css?v=18" as="style">
+  <link rel="preload" href="/css/layers/components.css?v=18" as="style">
+  <link rel="preload" href="/css/layers/utilities.css?v=18" as="style">
+  <link rel="stylesheet" href="/css/main.css?v=18">
+  <script type="module" src="/js/main.js?v=18"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- SHARED HEADER — near-identical across index.html + products/*.html (category pages add aria-current="page"). Edit all 4 together. -->
+  <!-- SHARED HEADER — near-identical across all pages (category/gifting pages add
+       aria-current="page" to their own trigger button). Edit all 5 together. -->
   <header class="site-header" id="top" role="banner">
     <div class="container site-header__inner">
       <a class="wordmark" href="/">EvoEarth <span>Living</span></a>
 
       <nav class="primary" id="mobile-nav" aria-label="Primary">
         <ul>
+          <li class="nav-home"><a href="/">EvoEarth Living</a></li>
+
           <li class="has-menu">
-            <a href="/products/wet-amenities.html" aria-expanded="false" aria-controls="menu-wet">Wet Amenities</a>
-            <ul id="menu-wet" class="submenu">
-              <li><a href="/products/wet-amenities.html#soaps">Soaps</a></li>
-              <li><a href="/products/wet-amenities.html#hair-care">Hair Care</a></li>
-              <li><a href="/products/wet-amenities.html#face-body">Face &amp; Body</a></li>
+            <button type="button" aria-expanded="false" aria-controls="menu-dry" aria-current="page">Dry Amenities</button>
+            <ul id="menu-dry" class="submenu submenu--photo">
+              <li><a href="/products/dry-amenities.html#dental-kit"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Dental Kit</span></a></li>
+              <li><a href="/products/dry-amenities.html#shaving-kit"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Shaving Kit</span></a></li>
+              <li><a href="/products/dry-amenities.html#comb-hair-oil"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Comb &amp; Hair Oil</span></a></li>
+              <li><a href="/products/dry-amenities.html#accessories"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Accessories</span></a></li>
+              <li><a href="/products/dry-amenities.html#intimate-repair"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Intimate &amp; Repair</span></a></li>
+              <li><a href="/products/dry-amenities.html#housekeeping"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Housekeeping</span></a></li>
+              <li><a href="/products/dry-amenities.html#spa-slippers"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Spa Slippers</span></a></li>
             </ul>
           </li>
+
           <li class="has-menu">
-            <a href="/products/dry-amenities.html" aria-current="page" aria-expanded="false" aria-controls="menu-dry">Dry Amenities</a>
-            <ul id="menu-dry" class="submenu">
-              <li><a href="/products/dry-amenities.html#dental-kit">Dental Kit</a></li>
-              <li><a href="/products/dry-amenities.html#shaving-kit">Shaving Kit</a></li>
-              <li><a href="/products/dry-amenities.html#comb-hair-oil">Comb &amp; Hair Oil</a></li>
-              <li><a href="/products/dry-amenities.html#accessories">Accessories</a></li>
-              <li><a href="/products/dry-amenities.html#intimate-repair">Intimate &amp; Repair</a></li>
-              <li><a href="/products/dry-amenities.html#housekeeping">Housekeeping</a></li>
-              <li><a href="/products/dry-amenities.html#spa-slippers">Spa Slippers</a></li>
+            <button type="button" aria-expanded="false" aria-controls="menu-wet">Wet Amenities</button>
+            <ul id="menu-wet" class="submenu submenu--photo">
+              <li><a href="/products/wet-amenities.html#soaps"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Soaps</span></a></li>
+              <li><a href="/products/wet-amenities.html#hair-care"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Hair Care</span></a></li>
+              <li><a href="/products/wet-amenities.html#face-body"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Face &amp; Body Care</span></a></li>
             </ul>
           </li>
+
           <li class="has-menu">
-            <a href="/products/aroma-essentials.html" aria-expanded="false" aria-controls="menu-aroma">Aroma Essentials</a>
-            <ul id="menu-aroma" class="submenu">
-              <li><a href="/products/aroma-essentials.html#aroma-care">Aroma Care</a></li>
-              <li><a href="/products/aroma-essentials.html#scented-candles">Scented Candles</a></li>
+            <button type="button" aria-expanded="false" aria-controls="menu-aroma">Aroma Essentials</button>
+            <ul id="menu-aroma" class="submenu submenu--photo">
+              <li><a href="/products/aroma-essentials.html#reed-diffuser"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Reed Diffusers</span></a></li>
+              <li><a href="/products/aroma-essentials.html#electric-diffuser"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Electric Diffusers</span></a></li>
+              <li><a href="/products/aroma-essentials.html#room-freshener-spray"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Room Freshener Spray</span></a></li>
+              <li><a href="/products/aroma-essentials.html#scented-candles"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Scented Candles</span></a></li>
             </ul>
           </li>
+
+          <li class="has-menu">
+            <button type="button" aria-expanded="false" aria-controls="menu-gifting">Gifting</button>
+            <ul id="menu-gifting" class="submenu submenu--photo">
+              <li><a href="/products/gifting.html#corporate-gifting"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Corporate Gifting</span></a></li>
+              <li><a href="/products/gifting.html#hotel-gifting"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Hotel Gifting</span></a></li>
+              <li><a href="/products/gifting.html#wedding-gifting"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Wedding Gifting</span></a></li>
+              <li><a href="/products/gifting.html#festival-gifting"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Festival Gifting</span></a></li>
+            </ul>
+          </li>
+
+          <li class="nav-contact"><a href="/#contact">Contact Us</a></li>
+          <li class="nav-about"><a href="/#about">About Us</a></li>
         </ul>
         <a class="btn btn--wa primary__cta" data-wa>Enquire on WhatsApp</a>
       </nav>
 
+      <div class="header-contact">
+        <a data-wa href="https://wa.me/919211379536">+91 92113 79536</a>
+        <a data-email href="mailto:evoearthliving@gmail.com">evoearthliving@gmail.com</a>
+      </div>
+
       <a class="btn btn--wa header-cta" data-wa>Enquire on WhatsApp</a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button class="search-toggle" type="button" aria-expanded="false" aria-controls="mobile-search" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8" fill="none"/><line x1="16.2" y1="16.2" x2="21" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-search" id="mobile-search" hidden>
+      <form class="container" role="search" data-search-form>
+        <input type="search" name="q" id="search-input" placeholder="Search dental kits, diffusers, soaps…" aria-label="Search products" autocomplete="off">
+        <ul class="search__results" hidden></ul>
+      </form>
     </div>
   </header>
 
@@ -127,7 +164,7 @@
     </div>
   </main>
 
-  <!-- SHARED FOOTER — near-identical across index.html + products/*.html (home footer has the extra wholesale line). Edit all 4 together. -->
+  <!-- SHARED FOOTER — near-identical across all pages (home footer has the extra wholesale line). Edit all 5 together. -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div>
@@ -142,6 +179,7 @@
           <li><a href="/products/dry-amenities.html">Dry Amenities</a></li>
           <li><a href="/products/wet-amenities.html">Wet Amenities</a></li>
           <li><a href="/products/aroma-essentials.html">Aroma Essentials</a></li>
+          <li><a href="/products/gifting.html">Gifting</a></li>
           <li><a href="/#who-we-serve">Who we serve</a></li>
           <li><a href="/#process">How ordering works</a></li>
           <li><a href="/#contact">Contact</a></li>

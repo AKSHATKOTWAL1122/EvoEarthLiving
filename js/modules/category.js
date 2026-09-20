@@ -11,8 +11,11 @@ const esc = (s) =>
 export const subcatSlug = (name) =>
   String(name).toLowerCase().replace(/&/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+// Item id doubles as a deep-link target for nav photo-submenu boxes that point
+// at one specific item rather than a whole subcategory (e.g. Aroma Essentials'
+// "Reed Diffusers" box → an item inside the "Aroma Care" subcategory).
 const itemCard = (it) => `
-  <li class="item-card framed">
+  <li class="item-card framed" id="${subcatSlug(it.name)}">
     <img src="${it.image}" alt="${esc(it.name)}" width="800" height="800"
          loading="lazy" decoding="async">
     <h3>${esc(it.name)}</h3>

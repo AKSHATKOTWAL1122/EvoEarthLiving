@@ -1,94 +1,107 @@
-// Header behaviour: Products dropdown (desktop disclosure + keyboard), mobile panel,
-// sticky scrolled state, active-section marking on the home page.
-// Progressive enhancement — the markup works without any of this.
+// Header behaviour: photo-menu dropdowns (desktop hover/click flyout, mobile
+// tap-to-expand accordion), mobile nav panel, mobile search reveal, sticky/
+// auto-hide header, active-section marking on the home page.
+// Progressive enhancement — the markup works without any of this (submenus sit
+// in normal flow under .no-js; see components.css).
 
 const MOBILE_QUERY = "(max-width: 60rem)";
 const isMobile = () => window.matchMedia(MOBILE_QUERY).matches;
 
-function initDropdown(wrap) {
-  const btn = wrap.querySelector(":scope > button, :scope > a");
-  const menu = wrap.querySelector(".submenu");
-  if (!btn || !menu) {
-    console.warn("[nav] dropdown markup incomplete");
-    return;
-  }
+function initDropdowns(header) {
+  const wraps = [...header.querySelectorAll(".has-menu")];
+  const entries = wraps
+    .map((wrap) => ({
+      wrap,
+      btn: wrap.querySelector(":scope > button, :scope > a"),
+      menu: wrap.querySelector(".submenu"),
+    }))
+    .filter((e) => {
+      if (!e.btn || !e.menu) console.warn("[nav] dropdown markup incomplete", e.wrap);
+      return e.btn && e.menu;
+    });
 
-  const items = () => [...menu.querySelectorAll("a")];
-  // Desktop: visibility + the staggered reveal are CSS, keyed off aria-expanded.
-  // The `hidden` attribute (display:none) would kill the transition, so on
-  // desktop the menu is left in the DOM flow and only aria-expanded toggles.
-  const open = () => {
-    if (isMobile()) return; // mobile: menu is always visible inside the panel
-    btn.setAttribute("aria-expanded", "true");
+  const isOpen = (e) => e.btn.getAttribute("aria-expanded") === "true";
+  const close = (e, { focusBtn = false } = {}) => {
+    e.btn.setAttribute("aria-expanded", "false");
+    if (focusBtn) e.btn.focus();
   };
-  const close = ({ focusBtn = false } = {}) => {
-    if (isMobile()) return;
-    btn.setAttribute("aria-expanded", "false");
-    if (focusBtn) btn.focus();
+  const open = (e) => {
+    entries.forEach((other) => { if (other !== e) close(other); });
+    e.btn.setAttribute("aria-expanded", "true");
   };
-  const isOpen = () => btn.getAttribute("aria-expanded") === "true";
 
-  btn.addEventListener("click", () => (isOpen() ? close() : open()));
+  entries.forEach((e) => {
+    const { wrap, btn, menu } = e;
+    const items = () => [...menu.querySelectorAll("a")];
 
-  let hoverTimer;
-  let closeTimer;
-  wrap.addEventListener("mouseenter", () => {
-    if (isMobile()) return;
-    clearTimeout(closeTimer);
-    hoverTimer = setTimeout(open, 80);
+    // Category buttons only toggle the photo menu — they don't navigate.
+    btn.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      isOpen(e) ? close(e) : open(e);
+    });
+
+    let hoverTimer;
+    let closeTimer;
+    wrap.addEventListener("mouseenter", () => {
+      if (isMobile()) return;
+      clearTimeout(closeTimer);
+      hoverTimer = setTimeout(() => open(e), 80);
+    });
+    wrap.addEventListener("mouseleave", () => {
+      if (isMobile()) return;
+      clearTimeout(hoverTimer);
+      // Grace period so a brief slip off the menu edge doesn't close it
+      closeTimer = setTimeout(() => close(e), 180);
+    });
+
+    btn.addEventListener("keydown", (ev) => {
+      if (ev.key === "ArrowDown") {
+        ev.preventDefault();
+        open(e);
+        items()[0]?.focus();
+      }
+    });
+
+    menu.addEventListener("keydown", (ev) => {
+      const list = items();
+      const i = list.indexOf(document.activeElement);
+      if (ev.key === "ArrowDown") {
+        ev.preventDefault();
+        list[Math.min(i + 1, list.length - 1)]?.focus();
+      } else if (ev.key === "ArrowUp") {
+        ev.preventDefault();
+        if (i <= 0) close(e, { focusBtn: true });
+        else list[i - 1].focus();
+      } else if (ev.key === "Home") {
+        ev.preventDefault();
+        list[0]?.focus();
+      } else if (ev.key === "End") {
+        ev.preventDefault();
+        list.at(-1)?.focus();
+      } else if (ev.key === "Escape") {
+        close(e, { focusBtn: true });
+      } else if (ev.key === "Tab" && !ev.shiftKey && document.activeElement === list.at(-1)) {
+        close(e);
+      }
+    });
+
+    document.addEventListener("pointerdown", (ev) => {
+      if (isOpen(e) && !wrap.contains(ev.target)) close(e);
+    });
   });
-  wrap.addEventListener("mouseleave", () => {
-    clearTimeout(hoverTimer);
-    // Grace period so a brief slip off the menu edge doesn't close it
-    closeTimer = setTimeout(close, 180);
-  });
 
-  btn.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      open();
-      items()[0]?.focus();
-    }
-  });
-
-  menu.addEventListener("keydown", (e) => {
-    const list = items();
-    const i = list.indexOf(document.activeElement);
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      list[Math.min(i + 1, list.length - 1)]?.focus();
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      if (i <= 0) close({ focusBtn: true });
-      else list[i - 1].focus();
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      list[0]?.focus();
-    } else if (e.key === "End") {
-      e.preventDefault();
-      list.at(-1)?.focus();
-    } else if (e.key === "Escape") {
-      close({ focusBtn: true });
-    } else if (e.key === "Tab" && !e.shiftKey && document.activeElement === list.at(-1)) {
-      close();
-    }
-  });
-
-  document.addEventListener("pointerdown", (e) => {
-    if (isOpen() && !wrap.contains(e.target)) close();
-  });
-
-  // Reset when crossing the breakpoint
+  // Reset every dropdown when crossing the breakpoint so state doesn't leak
+  // between the desktop flyout and the mobile accordion.
   window.matchMedia(MOBILE_QUERY).addEventListener("change", () => {
-    menu.hidden = false;
-    btn.setAttribute("aria-expanded", "false");
+    entries.forEach((e) => close(e));
   });
-  menu.hidden = false;
 }
 
 function initMobilePanel(header) {
   const toggle = header.querySelector(".nav-toggle");
   const panel = header.querySelector(".primary");
+  const searchToggle = header.querySelector(".search-toggle");
+  const searchPanel = header.querySelector(".mobile-search");
   if (!toggle || !panel) return;
 
   // Everything outside the panel that would otherwise stay focusable behind it.
@@ -97,6 +110,7 @@ function initMobilePanel(header) {
     document.querySelector(".site-footer"),
     header.querySelector(".wordmark"),
     header.querySelector(".header-cta"),
+    searchToggle,
   ].filter(Boolean);
 
   const setOpen = (state) => {
@@ -105,6 +119,10 @@ function initMobilePanel(header) {
     document.body.classList.toggle("no-scroll", state);
     outside.forEach((el) => (el.inert = state));
     if (state) {
+      if (searchPanel && !searchPanel.hidden) {
+        searchPanel.hidden = true;
+        searchToggle?.setAttribute("aria-expanded", "false");
+      }
       // Panel animates in from visibility:hidden; defer focus a frame so it lands.
       requestAnimationFrame(() => panel.querySelector("a, button")?.focus());
     } else {
@@ -123,6 +141,58 @@ function initMobilePanel(header) {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") setOpen(false);
   });
+
+  window.matchMedia(MOBILE_QUERY).addEventListener("change", (e) => {
+    if (!e.matches) setOpen(false);
+  });
+}
+
+// Toggle-only: reveals the mobile search field. The matching/results logic is
+// spec 18 — for now this just stops the form from doing a dead-end GET.
+function initSearchToggle(header) {
+  const toggle = header.querySelector(".search-toggle");
+  const panel = header.querySelector(".mobile-search");
+  if (!toggle || !panel) return;
+
+  const navToggle = header.querySelector(".nav-toggle");
+  const navPanel = header.querySelector(".primary");
+
+  const setOpen = (state) => {
+    panel.hidden = !state;
+    toggle.setAttribute("aria-expanded", String(state));
+    if (state) {
+      if (navPanel?.classList.contains("is-open")) {
+        navPanel.classList.remove("is-open");
+        navToggle?.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("no-scroll");
+        [
+          document.getElementById("main"),
+          document.querySelector(".site-footer"),
+          header.querySelector(".wordmark"),
+          header.querySelector(".header-cta"),
+        ].forEach((el) => { if (el) el.inert = false; });
+      }
+      requestAnimationFrame(() => panel.querySelector("input")?.focus());
+    } else {
+      toggle.focus();
+    }
+  };
+
+  toggle.addEventListener("click", () => {
+    setOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") setOpen(false);
+  });
+
+  document.addEventListener("pointerdown", (e) => {
+    if (toggle.getAttribute("aria-expanded") === "true" && !panel.contains(e.target) && e.target !== toggle) {
+      setOpen(false);
+    }
+  });
+
+  panel.querySelector("[data-search-form]")?.addEventListener("submit", (e) => e.preventDefault());
 
   window.matchMedia(MOBILE_QUERY).addEventListener("change", (e) => {
     if (!e.matches) setOpen(false);
@@ -202,8 +272,9 @@ export function initNav() {
     console.warn("[nav] .site-header not found");
     return;
   }
-  header.querySelectorAll(".has-menu").forEach(initDropdown);
+  initDropdowns(header);
   initMobilePanel(header);
+  initSearchToggle(header);
   initScrolledState(header);
   initAutoHide(header);
   initActiveSection(header);

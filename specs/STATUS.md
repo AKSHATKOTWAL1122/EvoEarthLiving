@@ -6,7 +6,7 @@ Legend: `·` not started · `~` partial · `x` done
 | #  | Component               | Appears on        | Spec'd | Built | Reviewed | Polished | Notes |
 |----|-------------------------|-------------------|:------:|:-----:|:--------:|:--------:|-------|
 | 00 | design-system-tokens    | all               |   x    |   x   |    x     |    ~     | `reset/fonts/tokens/base/main.css`; Fraunces + Hanken self-hosted. **Palette locked S3**: near-black / warm-ink / oxblood accent / brass structure / slate muted + `--grad-*` depth gradients. axe AA 0. Motion tokens still stub |
-| 01 | layout-shell-nav        | all               |   x    |   x   |    ·     |    ·     | header/footer shell on all 4 pages; current category marked `aria-current="page"` |
+| 01 | layout-shell-nav        | all               |   x    |   x   |    ~     |    ·     | **REBUILT 2026-09-20** on all 5 pages (home, dry, wet, aroma, gifting). 5 top-level items, Dry/Wet/Aroma/Gifting as pure toggle buttons opening photo-box submenus (image+label boxes, single-open, hover+click desktop / tap accordion mobile), header phone/email strip (`data-wa`→WhatsApp, `mailto`), 3-zone mobile header (hamburger / centered wordmark / search icon), mobile order EvoEarth Living→Dry→Wet→Aroma→Gifting→About Us via one shared `<ul>` + breakpoint-hidden `.nav-home`/`.nav-contact`/`.nav-about` (no duplicated markup). Aroma submenu splits "Aroma Care" into 3 boxes (Reed/Electric/Room-freshener) via new per-item `id` in `category.js`. Search-toggle wires up to spec 18's matching (`js/modules/search.js`, built alongside this in the same session) — Playwright-verified: typing "soap" returns the 4 wet-range soap items. Playwright-verified 390/1440: no console errors, dropdown + accordion + Escape/scroll-lock confirmed. **Open:** screenshots not archived to a file, no axe re-run yet. Cache-buster at `?v=18` |
 | 02 | hero                    | home              |   x    |   x   |    ·     |    ·     | built in `index.html`; uses `/assets/img/photos/home/hero.png` (interim art, awaiting final client photography per spec 14) |
 | 03 | about                   | home              |   x    |   x   |    ·     |    ·     | verbatim catalogue p2 text in `index.html` |
 | 04 | product-range-overview  | home              |   x    |   x   |    ·     |    ·     | no-JS fallback list + `data-range-list` in `index.html`; `products.js` upgrades |
@@ -21,13 +21,17 @@ Legend: `·` not started · `~` partial · `x` done
 | 13 | content-copy            | all               |   x    |   x   |    x     |    ·     | all home + 3 category HTML copy placed and matches spec 13; `products.js` fully populated (7/3/2 subcats, every blurb one factual sentence); customisation note wired on all 3 cat pages. Scanned: no third-party brand names; no stacked adjectives outside the verbatim About text. **Open:** hero h1 "The bathroom shelf, considered." awaits client sign-off (was `‹confirm›`) |
 | 14 | imagery                 | all               |   x    |   ·   |    ·     |    ·     | art-direction brief + generation prompts + file map in `specs/14-imagery.md`. All images still placeholder SVG. Launch needs 7 shots (home hero, 3 category heroes, 3 range cards); 43 item shots phased. Awaiting client photography |
 | 15 | capabilities-strip      | home              |   x    |   x   |    x     |    ·     | `#capabilities` `<dl>` between about & range; 4 qualitative claims (no metrics); dim-paper divider strip, kraft-square motif. axe 0 violations, no h-scroll, 4/2/1 cols. From Kimirica review item 2 |
+| 16 | gifting                 | new nav item, `/products/gifting.html` | x | · | · | · | New category, not in source PDF. Structure spec'd; bundle contents (which `products.js` items go in which box) **blocked on client** |
+| 17 | video-hero              | home (+ mobile, above nav panel) | x | · | · | · | 3 clips, click → category. Autoplay-muted-with-unmute decided as the technical default (audio-on-load isn't browser-possible). **Blocked on client:** actual video files |
+| 18 | search                  | mobile header only | x | x | x | · | Built (`js/modules/search.js`) — client-side substring match over `products.js` items, debounced input, arrow-key results nav, Escape clears. Playwright-verified @390: "diffuser" → 2 correct hits w/ working links, no-match fallback line, Esc close, console clean. Not yet: dedicated axe pass |
+| 19 | category-showcase       | home, below video hero | x | · | · | · | 6-tile "shop by category" grid (Luxury Gift Boxes / Scented Candles / Reed Diffusers / Soaps / Face & Body Care / Room Fresheners). **Brief was cut off after this section — placement + whatever follows is pending client input** |
 
 ## Files that exist now
 ```
 CLAUDE.md
 README.md           run / edit / deploy notes
 index.html          home — shell + hero/about/range/who-we-serve/process/contact/footer
-products/            dry-amenities.html, wet-amenities.html, aroma-essentials.html
+products/            dry-amenities.html, wet-amenities.html, aroma-essentials.html, gifting.html (stub — spec 16 bundle contents still blocked on client)
 specs/            00–15 + STATUS.md + BUILD-LOG.md + GRADE.md + REVIEW-kimirica.md
 References/        Websites.txt (client visual reference: kimirica.shop)
 css/main.css
@@ -47,6 +51,52 @@ catalogue/        evoearth-catalogue.pdf  (651-byte placeholder)
 ```
 favicon.ico   (icon.svg + favicon-32.png + apple-touch-icon.png in place)
 ```
+
+## Session 5 (2026-09-20) — nav pivot brief received, specs updated, no code yet
+Client sent a detailed nav/homepage brief (desktop nav restructure, photo-menu
+submenus, header phone/email strip, Gifting category, 3-video hero, mobile
+hamburger+search, home category-showcase section). Per instruction, **specs and
+CLAUDE.md updated only — no implementation yet.** Decisions made while converting
+the brief into specs:
+- **Nav replaces the old "Products ▾" dropdown directly** (client confirmed:
+  treat brief as final, not a proposal to review first).
+- **Gifting** (spec 16): new category, not in the source PDF. Structure spec'd;
+  bundle contents (which `products.js` items go into which box) are explicitly
+  **blocked on the client** — do not invent bundle contents.
+- **Video hero** (spec 17): placeholder container/behaviour now, real video files
+  later — same pattern as photography. Flagged the audio/autoplay conflict
+  (browsers block autoplay-with-sound) and defaulted to autoplay-muted +
+  click-to-unmute unless client says otherwise.
+- **Search** (spec 18): client-side substring match against `products.js` — no
+  backend/build step exists on this stack, so that's the only method that fits.
+  No open blocker, buildable now.
+- **Category showcase** (spec 19): 6-tile "shop by category" grid spec'd from the
+  unambiguous part of the brief. **The brief was cut off mid-sentence** ("Below
+  that some…") — did not guess at what follows; flagged as pending, not filled in.
+- Mobile nav order intentionally ends in "About Us" where desktop ends in
+  "Contact Us" (per brief, not a copy error) — noted explicitly in spec 01 so it
+  isn't "fixed" by mistake later.
+- `specs/REVIEW-kimirica.md` item 9 (mega-menu imagery, previously "SKIP for
+  now") is now superseded — client asked for it directly.
+
+### Build order once code work resumes
+1. ~~Spec 01 rebuild (nav shell — blocks everything else visually).~~ — **done
+   2026-09-20**, see row 01 above. `products/gifting.html` created as a
+   structural stub (header/footer + 4 anchor sections, no bundle content) so
+   the new Gifting submenu links resolve; spec 16 bundle contents are still
+   blocked on the client.
+2. ~~Spec 18 (search)~~ — **done 2026-09-20**, see row 18 above.
+3. Spec 17 (video hero) — build the container/behaviour now with placeholder
+   posters; swap real clips in later.
+4. Spec 16 (Gifting) — page/anchor structure now exists (`products/gifting.html`);
+   **hold bundle content** until client supplies which products go in which box.
+5. Spec 19 (category showcase) — build the 6 tiles now; revisit once the rest of
+   the homepage brief (cut off) is supplied.
+6. ~~Update `products/dry-amenities.html` / `wet-…` / `aroma-…` anchors so the
+   new submenu/search links (`#dental-kit`, `#soaps`, etc.) actually resolve~~
+   — **done 2026-09-20**: subcategory anchors already matched; added per-item
+   `id`s in `category.js` so Aroma's 3 split boxes (Reed/Electric/Room-freshener)
+   deep-link into the existing "Aroma Care" subcategory.
 
 ## Next steps (build order)
 1. ~~`index.html` — shell + hero/about/range/who-we-serve/process/contact~~ — **done 2026-09-06** (not yet browser-verified).

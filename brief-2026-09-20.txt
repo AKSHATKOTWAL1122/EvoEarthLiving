@@ -1,0 +1,64 @@
+For Desktop View
+
+Logo of EvoEarth Living in top left , which when clicked should open Homepage
+
+On Top Menu Categories
+First put Dry Amenities
+Then Wet Amenities
+Then Aroma Essentials
+Gifting
+Then Contact Us
+with Drop Down Photo Menu for each
+
+Then on Top Right Put Mobile Number & email id and when mobile number is clicked it should open WhatsApp automated menu
+
+
+Whenever cursor hover over Menu or clicked , sub menu should open showing as Boxes for each Kit like Dental Kit, Shaving Kit, Combs, Accessories, Spa Slippers, Essentials, Housekeeping in Dry Amenities category
+
+Whenever cursor hover over Menu or clicked , sub menu should open showing as Boxes for each Kit
+Eg for Wet Amenities
+Soaps, Hair Care, Face and Body Care
+
+Whenever cursor hover over Menu or clicked , sub menu should open showing as Boxes for each Kit
+Eg for Aroma Essentials
+Reed Diffusers, Electric Diffusers, Room Freshner Spray, Scented Candles
+
+Whenever cursor hover over Menu or clicked over Gifting then Gifting Page must open
+Which would include
+Corporate Gifting
+Hotel Gifting
+Wedding Gifting
+Festival Gifting
+
+
+Below these Menus
+There must be 3 HD Videos with Audio showcasing our products , must be very appealing videos
+When these Videos are clicked, appropriate category should open
+
+
+For Mobile View
+
+These same Categories must be optimised well for mobile view like Kimirica's Website
+There should be 3 dash button on top left , with EvoEarth Living written in the centre and on the top right there must be a search bar
+
+Then below that there must be same 3 videos
+
+Then Categories should be in the same order covering the whole mobile view page
+1.EvoEarth Living which when clicked opens homepage
+2.Dry Amenities
+3.Wet Amenities
+4.Aroma Essentials
+5.Gifting
+6.About Us
+
+Further when these Menus are opened, sub menus must appear as desktop view sub categories, which further opens their respective pages
+
+
+
+
+Below Menus and Videos
+The page should show certain categories (Different from the Sub Menu Bar Photos) as
+Luxury Gift Boxes, Scented Candles, Reed Diffusers, Soaps, Face and Body Care, Room Fresheners
+
+
+Below that some

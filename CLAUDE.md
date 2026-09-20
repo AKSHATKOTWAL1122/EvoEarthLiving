@@ -18,10 +18,36 @@ wrote it. No adjective stacking ("premium / luxurious / exquisite / transcendent
 
 ## Structure
 Multi-page static site, no build step:
-- `index.html` — home (hero, about, product-range overview, who we serve, ordering process, contact)
-- `products/dry-amenities.html`, `products/wet-amenities.html`, `products/aroma-essentials.html`
-- Category pages are reached as a flow: nav **"Products ▾"** dropdown → category page.
-  Home product-range cards link to the same pages.
+- `index.html` — home (hero, video showcase, category showcase, about, product-range
+  overview, who we serve, ordering process, contact)
+- `products/dry-amenities.html`, `products/wet-amenities.html`,
+  `products/aroma-essentials.html`, `products/gifting.html` (new — see spec 16)
+- **Nav (rewritten 2026-09-20, see spec 01):** 5 top-level items — Dry Amenities /
+  Wet Amenities / Aroma Essentials / Gifting (each a photo-box submenu of
+  subcategories) / Contact Us (anchor, not a page). Supersedes the old single
+  "Products ▾" dropdown.
+- Home product-range cards + the new home category-showcase section (spec 19) both
+  link into the same category pages/anchors.
+
+## Nav & homepage brief (2026-09-20) — in progress, specs written, code pending
+Client sent a full nav/homepage rework brief. Converted into specs
+`01` (rewritten), `16`–`19` (new); full breakdown + build order in
+`specs/STATUS.md` Session 5. Summary of what's locked vs. still open:
+- **Locked:** nav replaces old dropdown directly (not a v2 proposal); header gets a
+  persistent phone/email strip (click phone → WhatsApp) alongside the existing CTA
+  buttons, not instead of them; mobile header is hamburger-left /
+  wordmark-center / search-right (Kimirica pattern); mobile nav item order is
+  EvoEarth Living → Dry → Wet → Aroma → Gifting → **About Us** (intentionally not
+  "Contact Us" — matches desktop's last item being different by design, not a typo).
+- **Blocked on client:** Gifting bundle contents (which `products.js` items go in
+  which box — spec 16), the 3 actual video files for the video hero (spec 17), and
+  whatever comes after the category-showcase section — the brief was cut off
+  mid-sentence ("Below that some…"); nothing was guessed to fill that gap.
+- **Decided by us (flagged for client sign-off, not blocking):** search is
+  client-side substring match over `products.js` (spec 18 — no backend exists on
+  this stack, so no other method fits); video hero autoplay defaults to
+  muted-with-unmute since audio-on-autoplay is not something browsers allow (spec
+  17).
 
 ## Stack rules
 - Static HTML/CSS/JS. No framework, no bundler, no `package.json`.
@@ -73,7 +99,11 @@ Multi-page static site, no build step:
 
 ## CTAs / contact
 - Two CTAs everywhere: **WhatsApp enquiry** (primary) and **Download catalogue**.
-- No contact form, no "book a call", no scheduling link.
+- No contact form, no "book a call", no scheduling link. Nav's new "Contact Us" item
+  (spec 01) is an anchor to the existing `#contact` section — not a new form/page.
+- Header now also carries a persistent **phone + email strip** (desktop only; spec
+  01) — additive to the two CTAs above, not a replacement. Clicking the header phone
+  number opens WhatsApp (same mechanism as the CTA button), not a tel: dialer.
 - WhatsApp: +91 9211379536 (`wa.me/919211379536`). Call: +91 9797097342. Email:
   evoearthliving@gmail.com (mailto only).
 - Catalogue download → stable path `/catalogue/evoearth-catalogue.pdf` (user overwrites the
@@ -93,14 +123,15 @@ Full review + per-item status in **`specs/REVIEW-kimirica.md`**. State:
   category build-out + editorial descriptors (already done Session 1).
 - **Blocked on client assets:** all photography (spec 14), range-card visual
   payoff, fuller-bleed hero, accent/button/motion polish.
-- **Deferred post-launch:** horizontal carousel for the Dry grid, dropdown
-  mega-menu imagery.
+- **Deferred post-launch:** horizontal carousel for the Dry grid.
+- **Superseded 2026-09-20:** dropdown mega-menu imagery — no longer deferred, the
+  client asked for it directly (specs 01, 16).
 - **Not taking:** pricing/cart/ratings, discount+urgency banners, all-caps
   labels, auto-carousels, Kimirica's light/cream palette (our dark field is the
   deliberate POV).
 
 ## Spec-driven workflow
-- One spec per component in `specs/` (`00`–`14`), tracked in `specs/STATUS.md`
+- One spec per component in `specs/` (`00`–`19`), tracked in `specs/STATUS.md`
   (spec'd / built / reviewed / polished).
 - Build in the order given by `specs/STATUS.md` / the approved plan.
 - After the first full build, self-grade against the parent $10K checklist.
@@ -116,4 +147,6 @@ Full review + per-item status in **`specs/REVIEW-kimirica.md`**. State:
 Compressed catalogue PDF · vector logo (SVG) + small monochrome lockup/favicon ·
 real photography (brief + prompts in `specs/14-imagery.md`; drop into
 `assets/img/photos/{home,dry,wet,aroma}/`) · motion references (level + feel) ·
-trust-metric values · branded email decision.
+trust-metric values · branded email decision · **Gifting bundle contents** (spec
+16) · **3 video files for the video hero** (spec 17) · **rest of the homepage
+brief** (spec 19 — brief was cut off after the category-showcase section).

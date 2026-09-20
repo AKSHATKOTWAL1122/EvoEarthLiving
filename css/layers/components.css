@@ -55,9 +55,15 @@
   }
   .wordmark span { font-style: italic; font-size: 0.72em; opacity: 0.8; margin-left: 0.15em; }
 
-  /* Primary nav — pushed right, then nudged back off the CTA a little */
+  /* Primary nav — pushed right, then nudged back off the CTA a little.
+     .nav-home / .nav-about are mobile-only identity items and .nav-contact is
+     desktop-only; DOM order (home, dry, wet, aroma, gifting, contact, about)
+     is written so that hiding the ones each breakpoint doesn't use yields the
+     correct visual order on both, with no CSS `order` needed. */
   .primary { margin-left: auto; margin-right: var(--sp-5); }
   .primary > ul { display: flex; align-items: center; gap: var(--sp-4); }
+  .nav-home, .nav-about { display: none; }
+
   .primary a,
   .primary button {
     font-family: var(--font-body);
@@ -74,7 +80,8 @@
   }
   .primary a:hover,
   .primary button:hover,
-  .primary a[aria-current] { border-bottom-color: var(--kraft); }
+  .primary a[aria-current],
+  .primary button[aria-current] { border-bottom-color: var(--kraft); }
 
   .has-menu { position: relative; }
 
@@ -87,9 +94,39 @@
     background-image: var(--grad-ink-2);
     border: 1px solid var(--line-ink);
     border-radius: var(--radius);
-    padding: 0.35rem;
+    padding: 0.5rem;
     box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.65);
   }
+
+  /* Photo-box submenu — every category dropdown uses this. Image is decorative
+     (alt=""), the label underneath carries the text. */
+  .submenu.submenu--photo {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+    gap: 0.35rem;
+    width: max-content;
+    max-width: 23rem;
+  }
+  .submenu--photo li { margin-top: 0 !important; }
+  .submenu.submenu--photo a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.78rem;
+    border-radius: var(--radius);
+  }
+  .submenu--photo img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    background: var(--ink-3);
+  }
+  .submenu--photo a:hover img,
+  .submenu--photo a:focus-visible img { outline: 1px solid var(--kraft); outline-offset: 1px; }
 
   /* Staggered open: each row eases in after the one above it. JS drives this
      via aria-expanded; without JS the menu stays plainly visible. */
@@ -155,21 +192,90 @@
   .submenu a:focus-visible { background: rgba(201, 163, 107, 0.14); border-bottom: 0; }
   .submenu a[aria-current="page"] { color: var(--kraft); }
 
+  /* Header contact strip — ambient, additive to the WhatsApp CTA button.
+     Desktop only; hidden on mobile per spec 01 (contact stays reachable via
+     the footer + the persistent WhatsApp CTA). */
+  .header-contact {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    color: var(--text-on-ink-muted);
+    white-space: nowrap;
+  }
+  .header-contact a { color: inherit; text-decoration: none; }
+  .header-contact a:hover,
+  .header-contact a:focus-visible { color: var(--paper); text-decoration: underline; text-underline-offset: 0.2em; }
+
   /* Header CTA */
   .header-cta { flex: none; }
 
-  /* Nav toggle (mobile) */
-  .nav-toggle {
+  /* Nav toggle / search toggle (mobile) — icon-only, ≥44px tap target */
+  .nav-toggle,
+  .search-toggle {
     display: none;
+    align-items: center;
+    justify-content: center;
     flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
     background: none;
     border: 1px solid var(--line-ink);
     border-radius: var(--radius);
     color: var(--paper);
-    font-size: var(--step--1);
-    font-weight: 500;
-    padding: 0.5rem 0.8rem;
     cursor: pointer;
+  }
+  .nav-toggle:hover, .search-toggle:hover,
+  .nav-toggle:focus-visible, .search-toggle:focus-visible { border-color: var(--kraft); }
+
+  /* Mobile search reveal — spec 18: substring match over products.js */
+  .mobile-search { display: none; }
+  .mobile-search input {
+    width: 100%;
+    background: var(--ink-2);
+    background-image: var(--grad-ink-2);
+    border: 1px solid var(--line-ink);
+    border-radius: var(--radius);
+    color: var(--paper);
+    padding: 0.6rem 0.8rem;
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+  }
+  .mobile-search input::placeholder { color: var(--text-on-ink-muted); }
+  .mobile-search input:focus-visible { border-color: var(--kraft); outline: none; }
+
+  .search__results {
+    margin-top: 0.5rem;
+    padding: 0.25rem;
+    background: var(--ink-2);
+    background-image: var(--grad-ink-2);
+    border: 1px solid var(--line-ink);
+    border-radius: var(--radius);
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  .search__results li + li { border-top: 1px solid var(--line-ink); }
+  .search__results a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.6rem 0.7rem;
+    border-radius: var(--radius);
+    color: var(--paper);
+    text-decoration: none;
+  }
+  .search__results a:hover,
+  .search__results a:focus-visible {
+    background-color: rgba(201, 163, 107, 0.14);
+    outline: none;
+  }
+  .search__name { font-family: var(--font-body); font-weight: 500; font-size: var(--step-0); }
+  .search__tag { font-size: var(--step--1); color: var(--text-on-ink-muted); }
+  .search__empty {
+    padding: 0.65rem 0.7rem;
+    font-size: var(--step--1);
+    color: var(--text-on-ink-muted);
   }
 
   /* ---------- Buttons ---------- */
@@ -597,9 +703,16 @@
     .site-footer__inner { grid-template-columns: 1fr; gap: var(--sp-4); }
   }
 
-  /* ---------- Mobile nav panel ---------- */
+  /* ---------- Mobile header (3-zone: hamburger / wordmark / search) + nav panel ---------- */
   @media (max-width: 60rem) {
-    .nav-toggle { display: inline-block; }
+    .site-header__inner { position: relative; }
+    .nav-toggle { display: inline-flex; order: 1; }
+    .wordmark { order: 2; flex: 1; text-align: center; }
+    .search-toggle { display: inline-flex; order: 3; }
+    .header-contact, .header-cta { display: none; }
+
+    .mobile-search:not([hidden]) { display: block; padding: 0 0 var(--sp-3); }
+
     .primary {
       position: fixed;
       inset: 4rem 0 0;
@@ -620,28 +733,40 @@
     .primary > ul { flex-direction: column; align-items: stretch; gap: 0; }
     .primary > ul > li { border-bottom: 1px solid var(--line-ink); }
     .primary a, .primary button { display: block; width: 100%; text-align: left; padding: 1rem 0; font-size: var(--step-1); border-bottom: 0; }
+    .nav-home, .nav-about { display: block; }
+    .nav-contact { display: none; }
+
+    /* Category items expand in place (accordion), not a flyout. */
     .has-menu { position: static; }
-    .submenu {
+    .has-menu > .submenu {
+      display: none;
       position: static;
       border: 0;
       background: none;
-      padding: 0 0 var(--sp-3) var(--sp-3);
+      padding: 0 0 var(--sp-3);
       min-width: 0;
     }
+    .has-menu > [aria-expanded="true"] + .submenu { display: grid; }
     .submenu::before { display: none; }
-    .submenu a { padding: 0.7rem 0; font-size: var(--step-0); }
-    /* Inside the mobile panel the submenu is always shown, no stagger. */
+    /* Inside the mobile panel the accordion just shows/hides, no stagger. */
     html:not(.no-js) .has-menu > .submenu,
-    html:not(.no-js) .has-menu > .submenu > li {
+    html:not(.no-js) .has-menu > .submenu > li,
+    html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu,
+    html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li {
       opacity: 1;
       visibility: visible;
       transform: none;
       transition: none;
     }
-    .header-cta { display: none; }
+    /* Without JS there's no toggle, so every submenu must stay reachable. */
+    html.no-js .has-menu > .submenu { display: grid; }
+    .submenu--photo { grid-template-columns: repeat(3, 1fr); max-width: none; }
+    .submenu--photo a { font-size: var(--step--1); }
+
     .primary .primary__cta { display: inline-flex; width: 100%; margin-top: var(--sp-4); }
   }
   @media (min-width: 60.001rem) {
     .primary .primary__cta { display: none; }
+    .search-toggle, .mobile-search { display: none; }
   }
 }

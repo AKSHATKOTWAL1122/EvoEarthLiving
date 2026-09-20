@@ -42,7 +42,7 @@ client asset) · **SKIP** (deliberately not doing)
 | 6 | Fuller-bleed / atmospheric hero image | **BLOCKED** | Layout tweak is cheap but pointless without `assets/img/photos/home/hero.jpg`. Revisit when the hero shot lands; also refresh `assets/og/`. |
 | 7 | Footer "keep in touch" line (no form) | **DONE** (2026-09-06) | `index.html` footer brand column: "Distributors and trading houses — ask about wholesale terms." Link is `data-wa` with a distributor-specific `data-wa-msg`. `.site-footer__descr a` gets a kraft underline. |
 | 8 | Horizontal carousel for long item grids | **DEFER** | Only Dry (25 items) is long enough to matter. Adds JS + a motion decision (spec 09 is still a stub). Not worth it pre-launch; reconsider after the motion pass. If built: manual controls only, no autoplay. |
-| 9 | Mega-menu with imagery in the "Products" dropdown | **SKIP (for now)** | Our dropdown is 3 links — imagery would be decoration, not information. Revisit only if the product taxonomy grows. |
+| 9 | Mega-menu with imagery in the "Products" dropdown | **SUPERSEDED — now spec'd** (2026-09-20) | Client's nav-rework brief asked for this directly (photo-box submenus for Dry/Wet/Aroma/Gifting). See `specs/01-layout-shell-nav.md` (rewritten) and `specs/16-gifting.md`. No longer a "revisit later" item. |
 | 10 | Section-heading typographic hierarchy audit | **DONE — no change** (2026-09-06) | Reviewed home + category headings. Section `h2` and product names use Fraunces display; process steps and item-card details use Hanken 600. Deliberate two-tier split, consistent, no all-caps, no heading skips. Nothing to fix. |
 
 ---
@@ -70,4 +70,7 @@ client asset) · **SKIP** (deliberately not doing)
 2. Client-asset chase (photography per spec 14, logo, PDF, accent/motion refs).
 3. When assets land: swap images (#1, #4 payoff, #6), refresh OG, accent + button +
    motion polish pass, Lighthouse, re-grade `specs/GRADE.md`.
-4. Post-launch, if warranted: #8 carousel, #9 mega-menu.
+4. Post-launch, if warranted: #8 carousel.
+5. **2026-09-20:** #9 (mega-menu) is no longer post-launch — client asked for it
+   directly as part of a larger nav/homepage brief. See specs 01, 16–19 and
+   `specs/STATUS.md` Session 5 for the full breakdown and build order.
