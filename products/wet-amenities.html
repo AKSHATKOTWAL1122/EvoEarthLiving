@@ -203,52 +203,5 @@
       </div>
     </div>
   </footer>
-  <!-- Spec 20: catalogue lead-capture gate. Duplicated per page like the header/footer. -->
-  <div class="catalogue-gate" id="catalogue-gate" hidden>
-    <div class="catalogue-gate__scrim" data-gate-close></div>
-    <div class="catalogue-gate__panel" role="dialog" aria-modal="true" aria-labelledby="gate-title" aria-describedby="gate-desc">
-      <button type="button" class="catalogue-gate__close" data-gate-close aria-label="Close">&times;</button>
-
-      <h2 id="gate-title">Get the catalogue</h2>
-      <p id="gate-desc">Tell us a little about your business and we'll send the PDF straight through.</p>
-
-      <form id="catalogue-gate-form" name="catalogue-download" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-        <input type="hidden" name="form-name" value="catalogue-download">
-        <p class="visually-hidden">
-          <label>Don't fill this out if you're human: <input name="bot-field"></label>
-        </p>
-
-        <div class="field">
-          <label for="gate-name">Name</label>
-          <input id="gate-name" name="name" type="text" required minlength="2" autocomplete="name" aria-describedby="gate-name-err">
-          <span class="field__error" id="gate-name-err" hidden></span>
-        </div>
-        <div class="field">
-          <label for="gate-org">Business / organisation</label>
-          <input id="gate-org" name="organisation" type="text" required minlength="2" autocomplete="organization" aria-describedby="gate-org-err">
-          <span class="field__error" id="gate-org-err" hidden></span>
-        </div>
-        <div class="field">
-          <label for="gate-email">Email</label>
-          <input id="gate-email" name="email" type="email" required autocomplete="email" aria-describedby="gate-email-err">
-          <span class="field__error" id="gate-email-err" hidden></span>
-        </div>
-        <div class="field">
-          <label for="gate-phone">Phone</label>
-          <input id="gate-phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" aria-describedby="gate-phone-err">
-          <span class="field__error" id="gate-phone-err" hidden></span>
-        </div>
-
-        <p class="catalogue-gate__error" data-gate-error role="alert" hidden></p>
-
-        <button type="submit" class="btn btn--wa" data-gate-submit>Get catalogue</button>
-      </form>
-
-      <p class="catalogue-gate__success" data-gate-success role="status" hidden>
-        Thanks &mdash; your download is starting. <a data-catalogue-final target="_blank" rel="noopener">Open it again</a> if it didn't.
-      </p>
-    </div>
-  </div>
 </body>
-
 </html>
