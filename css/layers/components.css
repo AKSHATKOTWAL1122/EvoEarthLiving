@@ -100,12 +100,13 @@
 
   /* Photo-box submenu — every category dropdown uses this. Image is decorative
      (alt=""), the label underneath carries the text. */
+  /* Fixed width (not max-content) so every category dropdown draws the same
+     size box regardless of how many items it lists. */
   .submenu.submenu--photo {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
-    gap: 0.6rem;
-    width: max-content;
-    max-width: 32rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+    width: 33rem;
   }
   .submenu--photo li { margin-top: 0 !important; }
   .submenu.submenu--photo a {
@@ -803,6 +804,104 @@
   @media (max-width: 60rem) {
     .site-footer__inner { grid-template-columns: 1fr; gap: var(--sp-4); }
   }
+
+  /* ---------- Catalogue gate (spec 20) ---------- */
+  .catalogue-gate { position: fixed; inset: 0; z-index: 200; }
+  .catalogue-gate[hidden] { display: none; }
+  .catalogue-gate__scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 9, 8, 0.78);
+  }
+  .catalogue-gate__panel {
+    position: relative;
+    z-index: 1;
+    margin: var(--sp-4) auto;
+    max-width: 26rem;
+    max-height: calc(100svh - 2 * var(--sp-4));
+    overflow-y: auto;
+    padding: var(--sp-5) var(--sp-4);
+    background-color: var(--paper);
+    background-image: var(--grad-paper);
+    color: var(--ink);
+    border: var(--frame);
+    border-radius: var(--radius);
+  }
+  @media (min-width: 30.001rem) {
+    .catalogue-gate__panel { margin-block: 10vh; padding: var(--sp-5); }
+  }
+  .catalogue-gate__close {
+    position: absolute;
+    top: var(--sp-3);
+    right: var(--sp-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: 1px solid var(--line-paper);
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .catalogue-gate__close:hover,
+  .catalogue-gate__close:focus-visible { border-color: var(--kraft); }
+
+  .catalogue-gate__panel h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 400;
+    padding-right: var(--sp-5);
+  }
+  #gate-desc {
+    margin-top: var(--sp-2);
+    color: var(--text-on-paper-muted);
+    font-size: var(--step--1);
+    max-width: 34ch;
+  }
+
+  #catalogue-gate-form { margin-top: var(--sp-4); }
+
+  .field { margin-top: var(--sp-3); }
+  .field:first-child { margin-top: 0; }
+  .field label {
+    display: block;
+    font-size: var(--step--1);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .field input {
+    width: 100%;
+    background: var(--paper-2);
+    border: 1px solid var(--line-paper);
+    border-radius: var(--radius);
+    color: var(--ink);
+    padding: 0.65rem 0.8rem;
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+  }
+  .field input:focus-visible { border-color: var(--kraft); outline: none; }
+  .field--invalid input { border-color: var(--accent-ink); }
+  .field__error {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--accent-ink);
+    font-size: var(--step--1);
+  }
+  .field__error[hidden] { display: none; }
+
+  .catalogue-gate__error {
+    margin-top: var(--sp-3);
+    color: var(--accent-ink);
+    font-size: var(--step--1);
+  }
+  .catalogue-gate__success { margin-top: var(--sp-4); color: var(--text-on-paper-muted); }
+  .catalogue-gate__success a { color: var(--ink); text-decoration-color: var(--kraft); }
+
+  #catalogue-gate-form .btn { width: 100%; margin-top: var(--sp-4); }
 
   /* ---------- Mobile header (3-zone: hamburger / wordmark / search) + nav panel ---------- */
   @media (max-width: 60rem) {
