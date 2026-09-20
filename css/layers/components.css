@@ -83,12 +83,19 @@
   .primary a[aria-current],
   .primary button[aria-current] { border-bottom-color: var(--kraft); }
 
-  .has-menu { position: relative; }
+  /* No position here on desktop: .submenu's containing block is meant to be
+     .site-header (sticky, full viewport width) so it can center on the
+     viewport — see .submenu below. Mobile forces this back to static. */
 
+  /* Centered on the viewport (not on the trigger link): relies on
+     .site-header being the nearest positioned ancestor (position: sticky),
+     which spans the full viewport width edge-to-edge. Desktop only —
+     mobile's accordion resets position/transform back to normal flow. */
   .submenu {
     position: absolute;
     top: calc(100% + 0.5rem);
-    left: -0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
     min-width: 12.5rem;
     background-color: var(--ink-2);
     background-image: var(--grad-ink-2);
@@ -138,7 +145,7 @@
   html:not(.no-js) .has-menu > .submenu {
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-0.4rem) scaleY(0.98);
+    transform: translateX(-50%) translateY(-0.4rem) scaleY(0.98);
     transform-origin: top;
     transition: opacity 1.2s var(--ease), transform 1.2s var(--ease),
       visibility 0s linear 1.2s;
@@ -151,7 +158,7 @@
   html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0) scaleY(1);
+    transform: translateX(-50%) translateY(0) scaleY(1);
     transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
   }
   html:not(.no-js) .has-menu > [aria-expanded="true"] + .submenu > li {
@@ -948,6 +955,10 @@
     .has-menu > .submenu {
       display: none;
       position: static;
+      /* Undo the desktop viewport-centering transform — the accordion sits
+         in normal flow here, not a flyout. Covers no-js too, not just the
+         reveal-animation reset below. */
+      transform: none;
       border: 0;
       background: none;
       padding: 0 0 var(--sp-3);

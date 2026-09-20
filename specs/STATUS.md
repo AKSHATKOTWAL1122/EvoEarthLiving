@@ -56,6 +56,26 @@ catalogue/        evoearth-catalogue.pdf  (651-byte placeholder)
 favicon.ico   (icon.svg + favicon-32.png + apple-touch-icon.png in place)
 ```
 
+## Session 6 (2026-09-20) — category submenu sizing/positioning polish
+- Photo-box submenu (spec 01) column count is now pinned per category so a
+  list under 6 items renders as one row instead of guessing a layout: `#menu-dry`
+  (7 items) wraps at 6 cols, `#menu-wet` (3) / `#menu-aroma` (4) / `#menu-gifting`
+  (4) each get their own exact column count. Thumbnails bumped up twice per
+  client feedback (currently ~12.5rem columns).
+- **Desktop only:** submenu is now centered on the browser viewport, not
+  anchored to its trigger link — it was overflowing the right edge of the
+  screen for wide dropdowns (e.g. Dry's 6-wide row). Achieved by removing
+  `position: relative` from `.has-menu` so `.submenu`'s containing block
+  becomes `.site-header` (`position: sticky`, spans full viewport width)
+  instead of the trigger `<li>`; `left: 50%` + `transform: translateX(-50%)`
+  on `.submenu` then centers it against the full viewport edge-to-edge.
+- **Deliberately not touched:** mobile. The accordion submenu stays in normal
+  flow (`.has-menu > .submenu { position: static; transform: none; }` inside
+  the `max-width: 60rem` block already resets this). Client explicitly said
+  don't change mobile positioning now — **revisit later** if/when a mobile
+  polish pass is scheduled.
+- Cache-buster bumped to `?v=30`.
+
 ## Session 5 (2026-09-20) — nav pivot brief received, specs updated, no code yet
 Client sent a detailed nav/homepage brief (desktop nav restructure, photo-menu
 submenus, header phone/email strip, Gifting category, 3-video hero, mobile
