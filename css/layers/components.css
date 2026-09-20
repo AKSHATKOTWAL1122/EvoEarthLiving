@@ -100,13 +100,16 @@
 
   /* Photo-box submenu — every category dropdown uses this. Image is decorative
      (alt=""), the label underneath carries the text. */
-  /* Fixed width (not max-content) so every category dropdown draws the same
-     size box regardless of how many items it lists. */
+  /* Up to 6 images per row: a category with 6+ items wraps at 6 columns, a
+     category with fewer sits in a single row (exact per-category column
+     counts are pinned below, desktop only, since each list's length is
+     fixed content, not user data). */
   .submenu.submenu--photo {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
     gap: 0.8rem;
-    width: 39rem;
+    width: max-content;
+    max-width: calc(6 * 12.5rem + 5 * 0.8rem);
   }
   .submenu--photo li { margin-top: 0 !important; }
   .submenu.submenu--photo a {
@@ -972,5 +975,12 @@
   @media (min-width: 60.001rem) {
     .primary .primary__cta { display: none; }
     .search-toggle, .mobile-search { display: none; }
+
+    /* Pin exact column count per category so a list under 6 items renders
+       as one row instead of the auto-fill fallback guessing a layout. */
+    #menu-dry { grid-template-columns: repeat(6, 1fr); width: calc(6 * 12.5rem + 5 * 0.8rem); }
+    #menu-wet { grid-template-columns: repeat(3, 1fr); width: calc(3 * 12.5rem + 2 * 0.8rem); }
+    #menu-aroma,
+    #menu-gifting { grid-template-columns: repeat(4, 1fr); width: calc(4 * 12.5rem + 3 * 0.8rem); }
   }
 }
