@@ -14,6 +14,7 @@ export function initVideoHero() {
 
   const videos = slides.map((slide) => slide.querySelector(".video-hero__video"));
   const labelOut = stage.querySelector("[data-video-label-out]");
+  const copyOut = stage.querySelector("[data-video-copy-out]");
   const nextBtn = stage.querySelector("[data-video-next]");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -34,6 +35,7 @@ export function initVideoHero() {
     current = (index + slides.length) % slides.length;
     slides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
     if (labelOut) labelOut.textContent = slides[current].dataset.videoLabel || "";
+    if (copyOut) copyOut.textContent = slides[current].dataset.videoCopy || "";
 
     const incoming = videos[current];
     if (incoming && !reduce && inView) {

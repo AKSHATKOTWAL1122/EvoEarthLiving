@@ -176,24 +176,28 @@
          strips `loop` so `ended` can drive auto-advance to the next clip. -->
     <section class="video-hero" aria-label="Product showcase">
       <div class="video-hero__stage" data-video-stage>
-        <a class="video-hero__slide is-active" href="/products/dry-amenities.html" data-video-label="Dry Amenities" aria-label="Dry Amenities — watch and shop">
+        <a class="video-hero__slide is-active" href="/products/dry-amenities.html" data-video-label="Dry Amenities" data-video-copy="Dental, shaving, grooming and housekeeping essentials." aria-label="Dry Amenities — watch and shop">
           <video class="video-hero__video" autoplay muted loop playsinline preload="metadata">
             <source src="/assets/video/Dry-video.mp4" type="video/mp4">
           </video>
         </a>
-        <a class="video-hero__slide" href="/products/wet-amenities.html" data-video-label="Wet Amenities" aria-label="Wet Amenities — watch and shop">
-          <video class="video-hero__video" muted loop playsinline preload="none" poster="/assets/video/wet-poster.svg">
-            <source src="/assets/video/wet.mp4" type="video/mp4">
+        <a class="video-hero__slide" href="/products/wet-amenities.html" data-video-label="Wet Amenities" data-video-copy="Soap, hair and body care in bottles, tubes and sachets." aria-label="Wet Amenities — watch and shop">
+          <video class="video-hero__video" muted loop playsinline preload="none">
+            <source src="/assets/video/Wet-video.mp4" type="video/mp4">
           </video>
         </a>
-        <a class="video-hero__slide" href="/products/aroma-essentials.html" data-video-label="Aroma Essentials" aria-label="Aroma Essentials — watch and shop">
+        <a class="video-hero__slide" href="/products/aroma-essentials.html" data-video-label="Aroma Essentials" data-video-copy="Diffusers, room sprays and beeswax-soy candles." aria-label="Aroma Essentials — watch and shop">
           <video class="video-hero__video" muted loop playsinline preload="none" poster="/assets/video/aroma-poster.svg">
             <source src="/assets/video/aroma-video.mp4" type="video/mp4">
           </video>
         </a>
 
         <span class="video-hero__scrim" aria-hidden="true"></span>
-        <span class="video-hero__label" data-video-label-out>Dry Amenities</span>
+        <div class="video-hero__copy">
+          <p class="video-hero__kicker">Product range</p>
+          <h2 class="video-hero__headline" data-video-label-out>Dry Amenities</h2>
+          <p class="video-hero__sub" data-video-copy-out>Dental, shaving, grooming and housekeeping essentials.</p>
+        </div>
 
         <button type="button" class="video-hero__nav video-hero__nav--next" data-video-next aria-label="Next video" hidden>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
