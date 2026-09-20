@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Dry Amenities">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#1c1613"/>
+      <stop offset="100%" stop-color="#0a0908"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#g)"/>
+  <path d="M40 40h60M40 40v60" stroke="#c9a36b" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <path d="M1240 680h-60M1240 680v-60" stroke="#c9a36b" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <text x="640" y="368" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#c9a36b">Dry Amenities</text>
+</svg>

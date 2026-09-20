@@ -7,6 +7,7 @@ import { initRangeOverview } from "./modules/products.js?v=11";
 import { initCategoryPage } from "./modules/category.js?v=11";
 import { initGlow } from "./modules/glow.js?v=11";
 import { initSearch } from "./modules/search.js?v=11";
+import { initVideoHero } from "./modules/video-hero.js?v=11";
 
 const run = () => {
   document.documentElement.classList.remove("no-js");
@@ -15,6 +16,7 @@ const run = () => {
   try { initRangeOverview(); } catch (e) { console.error("[range]", e); }
   try { initCategoryPage(); } catch (e) { console.error("[category]", e); }
   try { initSearch(); } catch (e) { console.error("[search]", e); }
+  try { initVideoHero(); } catch (e) { console.error("[video-hero]", e); }
   try { initGlow(); } catch (e) { console.error("[glow]", e); }
   // reveal last, after data-driven sections are in the DOM
   try { initReveal(); } catch (e) { console.error("[reveal]", e); }

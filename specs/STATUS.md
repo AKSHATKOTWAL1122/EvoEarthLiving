@@ -22,7 +22,7 @@ Legend: `·` not started · `~` partial · `x` done
 | 14 | imagery                 | all               |   x    |   ·   |    ·     |    ·     | art-direction brief + generation prompts + file map in `specs/14-imagery.md`. All images still placeholder SVG. Launch needs 7 shots (home hero, 3 category heroes, 3 range cards); 43 item shots phased. Awaiting client photography |
 | 15 | capabilities-strip      | home              |   x    |   x   |    x     |    ·     | `#capabilities` `<dl>` between about & range; 4 qualitative claims (no metrics); dim-paper divider strip, kraft-square motif. axe 0 violations, no h-scroll, 4/2/1 cols. From Kimirica review item 2 |
 | 16 | gifting                 | new nav item, `/products/gifting.html` | x | · | · | · | New category, not in source PDF. Structure spec'd; bundle contents (which `products.js` items go in which box) **blocked on client** |
-| 17 | video-hero              | home (+ mobile, above nav panel) | x | · | · | · | 3 clips, click → category. Autoplay-muted-with-unmute decided as the technical default (audio-on-load isn't browser-possible). **Blocked on client:** actual video files |
+| 17 | video-hero              | home, full-width below header | x | x | x | · | **Built 2026-09-20, revised twice same day** (3-up row → prev/next/dots/sound carousel → arrow-only, after "looks like a video player" feedback). Final: single full-width stage (`js/modules/video-hero.js`) — one clip at a time, auto-advances on `ended`, **only** control is one next-arrow (no native controls, no sound toggle, no dots, no prev). No-JS fallback: 3 stacked `autoplay muted loop` `<video>`s (silent autoplay needs no gesture, so zero chrome even without JS) behind real `<a>` links. Posters redrawn without a play-button icon (the first draft's poster art was the main "video player" tell) — now a plain dark radial panel + italic kicker. Kraft hairline border top/bottom keeps the framed-media language on an edge-to-edge element. `prefers-reduced-motion` never autoplays; next-arrow still switches slides. Playwright-verified: JS-off, reduced-motion, synthetic `ended` auto-advance, next-arrow click, 1440 (`21/9`, capped 65vh) + 390 (`4/5`) layouts, axe 0 violations. Active-slide `<source>` 404s as expected — **blocked on client:** the actual video files |
 | 18 | search                  | mobile header only | x | x | x | · | Built (`js/modules/search.js`) — client-side substring match over `products.js` items, debounced input, arrow-key results nav, Escape clears. Playwright-verified @390: "diffuser" → 2 correct hits w/ working links, no-match fallback line, Esc close, console clean. Not yet: dedicated axe pass |
 | 19 | category-showcase       | home, below video hero | x | · | · | · | 6-tile "shop by category" grid (Luxury Gift Boxes / Scented Candles / Reed Diffusers / Soaps / Face & Body Care / Room Fresheners). **Brief was cut off after this section — placement + whatever follows is pending client input** |
 
@@ -38,10 +38,12 @@ css/main.css
 css/layers/       reset, fonts, tokens, base, layout, components, utilities .css
 js/main.js
 js/data/          site.js, products.js
-js/modules/       contact.js, nav.js, reveal.js, products.js, category.js, glow.js
+js/modules/       contact.js, nav.js, reveal.js, products.js, category.js, glow.js,
+                   search.js, video-hero.js
 assets/fonts/     fraunces-var[-italic|-ext].woff2, hanken-var[-ext].woff2
 assets/img/placeholders/  item.svg
 assets/img/photos/  {home,dry,wet,aroma}/ — interim hero.png / card.png (spec 14 pending)
+assets/video/     {dry,wet,aroma}-poster.svg (placeholder); .mp4 files pending client
 assets/favicon/   icon.svg, favicon-32.png, apple-touch-icon.png
 assets/og/        evoearth-og-1200x630.png (+ .svg source)
 catalogue/        evoearth-catalogue.pdf  (651-byte placeholder)
@@ -86,8 +88,8 @@ the brief into specs:
    the new Gifting submenu links resolve; spec 16 bundle contents are still
    blocked on the client.
 2. ~~Spec 18 (search)~~ — **done 2026-09-20**, see row 18 above.
-3. Spec 17 (video hero) — build the container/behaviour now with placeholder
-   posters; swap real clips in later.
+3. ~~Spec 17 (video hero)~~ — **done 2026-09-20**, see row 17 above. Container/
+   behaviour built with placeholder posters; swap real clips in when supplied.
 4. Spec 16 (Gifting) — page/anchor structure now exists (`products/gifting.html`);
    **hold bundle content** until client supplies which products go in which box.
 5. Spec 19 (category showcase) — build the 6 tiles now; revisit once the rest of

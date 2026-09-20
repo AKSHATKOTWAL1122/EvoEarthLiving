@@ -422,6 +422,103 @@
     .btn-row .btn { flex: 1 1 100%; }
   }
 
+  /* ---------- Video hero ---------- */
+  /* Full-bleed stage, one clip playing at a time, no player chrome — the only
+     control is the next arrow. Base rules are the no-JS state: 3 clips
+     stacked full-width, each autoplaying + looping on its own (no `controls`
+     needed since they're muted — browsers allow silent autoplay without JS).
+     JS (video-hero.js) adds .js-carousel, which the html:not(.no-js) block
+     below turns into the single-slide stage + reveals the next arrow. */
+  .video-hero { background-color: var(--ink); }
+  .video-hero__stage {
+    position: relative;
+    border-block: 1px solid var(--kraft);
+  }
+  .video-hero__slide {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .video-hero__slide + .video-hero__slide { border-top: 1px solid var(--line-ink); }
+  .video-hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Scrim: a depth cue for label legibility, not decoration — same rule as the
+     rest of the site's --grad-* surfaces, just a plain low-opacity ink wash
+     since this sits over unpredictable footage rather than a fixed tone. */
+  .video-hero__scrim {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(10, 9, 8, 0.85), rgba(10, 9, 8, 0));
+    pointer-events: none;
+  }
+  .video-hero__label {
+    position: absolute;
+    left: var(--sp-4);
+    bottom: var(--sp-4);
+    font-weight: 600;
+    font-size: var(--step-0);
+    color: var(--paper);
+    letter-spacing: 0.01em;
+  }
+  .video-hero__nav,
+  .video-hero__scrim,
+  .video-hero__label { display: none; }
+
+  /* ---------- Video hero: JS carousel (single slide + next arrow) ---------- */
+  html:not(.no-js) .video-hero__stage.js-carousel {
+    aspect-ratio: 21 / 9;
+    max-height: 65vh;
+  }
+  html:not(.no-js) .video-hero__stage.js-carousel .video-hero__slide {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    aspect-ratio: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s var(--ease);
+    border-top: none;
+  }
+  html:not(.no-js) .video-hero__stage.js-carousel .video-hero__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  html:not(.no-js) .video-hero__stage.js-carousel .video-hero__nav { display: flex; }
+  html:not(.no-js) .video-hero__stage.js-carousel .video-hero__scrim,
+  html:not(.no-js) .video-hero__stage.js-carousel .video-hero__label { display: block; }
+
+  .video-hero__nav {
+    position: absolute;
+    z-index: 2;
+    right: var(--sp-4);
+    bottom: var(--sp-4);
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 242, 236, 0.4);
+    background: rgba(10, 9, 8, 0.35);
+    color: var(--paper);
+    transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+  .video-hero__nav:hover,
+  .video-hero__nav:focus-visible { border-color: var(--kraft); }
+
+  @media (max-width: 60rem) {
+    .video-hero__slide { aspect-ratio: 16 / 9; }
+    html:not(.no-js) .video-hero__stage.js-carousel { aspect-ratio: 4 / 5; max-height: none; }
+    .video-hero__nav { width: 2.25rem; height: 2.25rem; }
+  }
+
   /* ---------- Range overview ---------- */
   .range__head { max-width: var(--measure); margin-bottom: var(--sp-6); }
   .range__head p { color: var(--text-on-ink-muted); margin-top: var(--sp-3); }

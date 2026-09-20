@@ -1,88 +1,133 @@
-# Spec 17: Video Hero (3 clips)
+# Spec 17: Video Hero (3 clips, one-at-a-time, arrow-only)
 
-**Status:** spec'd — placeholder assets, real videos pending
-**Appears on:** home, directly below the nav (desktop); mobile, directly below the
-3-zone header (before the nav panel content)
+**Status:** built 2026-09-20, **revised twice same day**:
+1. Original brief called for a 3-up row → changed to a full-width single-video
+   stage, one clip at a time, auto-advance on end, prev/next arrows + dots.
+2. User then flagged it "looks like a video player" — removed everything but
+   a single next arrow: no native controls, no sound toggle, no dots, no prev.
+   Posters redrawn without a play-button icon (that was the biggest offender).
+This is the current, final shape.
+**Appears on:** home, directly below the header/nav.
 **Depends on:** 00, 01
-**Files touched:** `index.html`, `css/layers/components.css`, new
-`js/modules/video-hero.js`, `assets/video/` (new directory)
+**Files touched:** `index.html`, `css/layers/components.css`,
+`js/modules/video-hero.js`, `assets/video/` (posters only — clips pending)
 
 ## What this is
-Three HD video clips with audio, shown as a row (desktop) / stack or swipe (mobile),
-each showcasing product use. Clicking a video navigates to its mapped category.
+One full-width video plays at a time (Dry → Wet → Aroma, looping back to Dry),
+each showcasing product use. The active clip auto-advances to the next when it
+ends; the *only* visible/interactive control is a single "next" arrow — no
+scrubber, no play/pause, no fullscreen, no sound toggle, no dots. It should
+read as ambient brand footage, not an embedded video player. Clicking the clip
+body navigates to its mapped category page.
 **No video files exist yet** — this spec defines the container, behaviour, and
 mapping now; real assets drop in later, same pattern as spec 14 photography.
 
 ## Structure / markup
 ```
 <section class="video-hero" aria-label="Product showcase">
-  <button class="video-hero__item" data-video-target="/products/dry-amenities.html">
-    <video muted loop playsinline poster="/assets/video/dry-poster.jpg">
-      <source src="/assets/video/dry.mp4" type="video/mp4">
-    </video>
-    <span class="video-hero__label">Dry Amenities</span>
-    <span class="video-hero__sound-toggle" aria-label="Unmute">…</span>
-  </button>
-  <!-- × 3, mapped to Dry / Wet / Aroma -->
+  <div class="video-hero__stage" data-video-stage>
+    <a class="video-hero__slide is-active" href="/products/dry-amenities.html"
+       data-video-label="Dry Amenities" aria-label="Dry Amenities — watch and shop">
+      <video class="video-hero__video" autoplay muted loop playsinline preload="metadata"
+             poster="/assets/video/dry-poster.svg">
+        <source src="/assets/video/dry.mp4" type="video/mp4">
+      </video>
+    </a>
+    <!-- × 3 slides total, mapped to Dry / Wet / Aroma -->
+
+    <span class="video-hero__scrim" aria-hidden="true"></span>
+    <span class="video-hero__label" data-video-label-out>Dry Amenities</span>
+    <button class="video-hero__nav video-hero__nav--next" data-video-next aria-label="Next video">…</button>
+  </div>
 </section>
 ```
-- **Mapping (default, revisit if you want Gifting instead of one of the three):**
-  video 1 → Dry Amenities, video 2 → Wet Amenities, video 3 → Aroma Essentials.
-  Gifting is newer and has no dedicated video slot yet — add a 4th slot later if
-  wanted, don't force a 4-video row now.
-- Whole card is the click target (`data-video-target`), not just a small "play"
-  icon — matches "when clicked, appropriate category should open."
+- **Mapping (unchanged):** slide 1 → Dry Amenities, slide 2 → Wet Amenities,
+  slide 3 → Aroma Essentials. Gifting has no slot yet.
+- The slide itself is a real `<a>` (whole body is the click target) so
+  navigation works with or without JS.
+- **Base markup is the no-JS state**: 3 slides, block-stacked, each
+  `autoplay muted loop` — silent autoplay doesn't need a user gesture, so
+  browsers run it without any JS and **no `controls` are needed at all**.
+  `video-hero.js` adds `.js-carousel` to `[data-video-stage]`, which is what
+  turns this into the absolutely-positioned, single-slide stage and reveals
+  the next arrow (`display: none` until that class is present, since it does
+  nothing without JS).
 
-## Audio & autoplay — the real constraint
-Browsers block autoplay-with-sound. "3 HD videos with audio" that also need to
-autoplay on page load is not achievable without a click — the brief needs one
-resolved:
-- **Default behaviour:** videos autoplay **muted + looped** (like the rest of the
-  web handles hero video), each with a small unmute control. Clicking the video
-  body still navigates to the category; the unmute control is a separate small
-  hit-target that toggles sound without navigating.
-- This is the standard pattern (matches how Kimirica-tier sites actually behave
-  despite marketing copy saying "with audio") — flag if you specifically want
-  tap-to-play-with-sound-first instead, which is a bigger UX change (videos would
-  need to *not* autoplay, showing a poster + play button first).
+## Audio & autoplay
+Videos autoplay **muted** (browsers block autoplay-with-sound; muted-autoplay
+needs no user gesture, which is also what makes the no-JS fallback work). No
+sound control — matching "no user control except the next arrow," visitors
+who want sound go to the category page and use its own media if any exists.
 
 ## Behaviour (`video-hero.js`)
-- IntersectionObserver: play when ≥50% in viewport, pause when scrolled out
-  (bandwidth/battery courtesy, standard practice).
-- `prefers-reduced-motion`: videos do not autoplay; poster image shown with a
-  manual play control.
-- Click on the card body → navigate to `data-video-target`. Click on the
-  sound-toggle → `event.stopPropagation()`, toggles `video.muted`.
-- No-JS fallback: `<video controls poster>` still plays inline (native controls),
-  and the card is still a real `<a>`-wrapped link so navigation works either way —
-  build as an anchor wrapping the video, not a `<button>`, to keep this true.
+- On init: adds `.js-carousel`, strips the `loop` attribute from every
+  `<video>` (loop restarts before `ended` fires, so it has to go for
+  auto-advance to work), shows slide 0.
+- `ended` on the active `<video>` → advance to the next slide (wraps after the
+  last). No fixed timer — the clip's own runtime paces the sequence.
+- The next-arrow calls the same `show(index)` the `ended` handler uses —
+  pauses and rewinds the outgoing video, plays the incoming one (if in view
+  and motion is OK).
+- IntersectionObserver on the stage: play the active video when ≥50% in view,
+  pause when scrolled out (bandwidth/battery courtesy).
+- `prefers-reduced-motion: reduce` → never calls `.play()`; the next arrow
+  still switches which poster/slide is showing, it just never starts
+  playback.
+- No-JS fallback: see markup note above — 3 stacked, self-looping, silent
+  `<video>`s behind real links, zero chrome.
 
 ## Visual design
-- Full-width row, 3 equal columns desktop; stacked or horizontally swipeable on
-  mobile (decide against real footage — vertical vs. landscape source video changes
-  this).
-- Label: small Hanken kicker bottom-left over a subtle gradient scrim (contrast
-  safety, matches the `--grad-*` depth-cue rule already used elsewhere — not
-  decorative, functional for text legibility).
-- No new colours — scrim uses existing `--ink` at low opacity.
+- Full-bleed width (edge to edge of the viewport, outside `.container`).
+  **Kept the border**: a 1px kraft (`--kraft`) hairline on the stage's top and
+  bottom edge, matching the site's existing framed-media convention even
+  though the stage itself runs full width.
+- Aspect ratio: `21/9` capped at `max-height: 65vh` on desktop, `4/5` on
+  mobile (≤60rem) — revisit once real footage is in hand.
+- Label: bottom-left over a gradient scrim (contrast safety, same rule as the
+  rest of the site's `--grad-*` depth cues — functional, not decorative).
+- The only chrome: one small brass-bordered circle, bottom-right, holding the
+  next-arrow glyph. No other buttons, dots, or overlays.
+- Posters (`assets/video/{dry,wet,aroma}-poster.svg`) are a plain dark
+  radial-gradient panel with an italic category kicker and brass corner
+  ticks — deliberately **not** a "video placeholder" graphic (the first pass
+  drew a play-button icon on the poster itself, which read as a stock video
+  player and is exactly what got flagged).
+- No new colours — scrim uses `--ink` at low opacity, everything else reuses
+  `--kraft`/`--paper` tokens already in the palette.
 
 ## Performance
-- `poster` image required per video (first-frame-quality still, part of spec 14's
-  eventual shot list) so there's no blank flash before video data loads.
-- Lazy-load: `preload="metadata"` until in viewport, then swap to real playback.
-- Keep clips short (6–10s loop) and compressed — this is a static site with no CDN
-  video pipeline; oversized files will hurt the performance budget (spec 11).
+- `poster` per video, `preload="metadata"` — the no-JS path autoplays all 3
+  independently so each needs enough preload to start; the JS path only ever
+  calls `.play()` on the active slide.
+- Keep clips short (6–10s) and compressed — static site, no CDN video
+  pipeline; oversized files will hurt the performance budget (spec 11), and
+  the no-JS fallback autoplays all three regardless of scroll position, so
+  file size matters even more than usual here.
 
 ## Open / pending
-- [ ] **Blocked on you:** the 3 actual video files (+ posters).
-- [ ] Confirm autoplay-muted-with-unmute vs. tap-to-play-with-sound (see above).
-- [ ] Confirm mapping (Dry/Wet/Aroma) or swap one slot for Gifting.
-- [ ] Mobile layout: stacked cards vs. swipeable row — decide once real aspect
-      ratios are known.
+- [ ] **Blocked on you:** the 3 actual video files. Posters are placeholder
+      SVGs (`assets/video/{dry,wet,aroma}-poster.svg`) — swap for real
+      first-frame stills once spec 14 photography/video lands.
+- [x] Autoplay-muted shipped as the default, no sound control by design.
+- [x] Mapping shipped as Dry / Wet / Aroma, in that order.
+- [x] One-at-a-time stage with auto-advance-on-end + a single next arrow,
+      no other player chrome — shipped 2026-09-20 after two revisions (3-up
+      row → prev/next/dots/sound carousel → arrow-only).
 
 ## Acceptance criteria
-- [ ] Works with JS off (native `<video controls>`, real `<a>` navigation).
-- [ ] `prefers-reduced-motion` respected (no autoplay).
-- [ ] Each card navigates to the correct category on click.
-- [ ] No layout shift before video/poster loads (explicit aspect-ratio reserved).
-- [ ] Lighthouse: video weight doesn't blow the performance budget (spec 11).
+- [x] Works with JS off (3 stacked, autoplay+loop, silent `<video>`s with
+      zero controls, real `<a>` navigation) — Playwright-verified with JS
+      requests blocked.
+- [x] `prefers-reduced-motion` respected (no autoplay; next arrow still
+      switches slides without ever calling `.play()`) — Playwright-verified.
+- [x] Auto-advances to the next slide when the active video's `ended` event
+      fires — Playwright-verified by dispatching `ended` synthetically (no
+      real clips to let play out yet).
+- [x] The next arrow is the only visible control — no native controls, sound
+      toggle, dots, or prev button.
+- [x] Each slide navigates to the correct category on click (real `<a href>`,
+      no JS required).
+- [x] No layout shift before video/poster loads (`aspect-ratio` reserved on
+      the stage/slides).
+- [ ] Lighthouse: video weight budget — not measurable yet, no real clips exist.
+- [x] axe: 0 violations on `.video-hero` (1440 + 390 viewports).
