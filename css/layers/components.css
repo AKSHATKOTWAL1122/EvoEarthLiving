@@ -441,6 +441,7 @@
   .video-hero__slide {
     position: absolute;
     inset: 0;
+    z-index: 0;
     display: block;
     opacity: 0;
     pointer-events: none;
@@ -464,6 +465,7 @@
      stack, not one line of type. */
   .video-hero__scrim {
     position: absolute;
+    z-index: 1;
     inset: auto 0 0 0;
     height: 62%;
     background: linear-gradient(to top, rgba(10, 9, 8, 0.88), rgba(10, 9, 8, 0));
@@ -471,6 +473,7 @@
   }
   .video-hero__copy {
     position: absolute;
+    z-index: 2;
     left: var(--sp-4);
     right: var(--sp-4);
     bottom: var(--sp-5);
@@ -509,7 +512,7 @@
   }
   .video-hero__nav {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     right: var(--sp-4);
     bottom: var(--sp-4);
     display: flex;
