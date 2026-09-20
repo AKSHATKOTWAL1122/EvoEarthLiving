@@ -466,17 +466,18 @@
   .video-hero__scrim {
     position: absolute;
     z-index: 1;
-    inset: auto 0 0 0;
-    height: 62%;
-    background: linear-gradient(to top, rgba(10, 9, 8, 0.88), rgba(10, 9, 8, 0));
+    inset: 0 auto 0 0;
+    width: 58%;
+    background: linear-gradient(to right, rgba(10, 9, 8, 0.8), rgba(10, 9, 8, 0));
     pointer-events: none;
   }
   .video-hero__copy {
     position: absolute;
     z-index: 2;
+    top: 50%;
     left: var(--sp-4);
     right: var(--sp-4);
-    bottom: var(--sp-5);
+    transform: translateY(-50%);
     max-width: 34rem;
   }
   .video-hero__kicker {
@@ -535,66 +536,53 @@
     .video-hero__nav { width: 2.25rem; height: 2.25rem; }
   }
 
-  /* ---------- Range overview ---------- */
-  .range__head { max-width: var(--measure); margin-bottom: var(--sp-6); }
-  .range__head p { color: var(--text-on-ink-muted); margin-top: var(--sp-3); }
+  /* ---------- Shop-by-category showcase (spec 19) ---------- */
+  .showcase { padding-block: var(--section-y); background: var(--paper); }
+  .showcase__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-2);
+  }
+  @media (max-width: 60rem) { .showcase__grid { grid-template-columns: repeat(2, 1fr); } }
 
-  .range-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
-  @media (max-width: 60rem) { .range-list { grid-template-columns: 1fr; } }
-
-  .range-card {
+  .showcase__grid a {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: var(--frame-inset);
-    border: 1px solid var(--line-ink);
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
     border-radius: var(--radius);
-    background-image: var(--grad-card-ink);
-    transition: border-color var(--dur-fast) var(--ease),
-      background-color var(--dur-fast) var(--ease),
-      transform 0.55s var(--ease);
   }
-  .range-card:hover,
-  .range-card:focus-within {
-    border-color: var(--kraft);
-    background-color: rgba(201, 163, 107, 0.05);
-    transform: translateY(-12px);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .range-card:hover,
-    .range-card:focus-within { transform: none; }
-  }
-  .range-card__media { overflow: hidden; border-radius: 1px; }
-  .range-card__media img {
+  .showcase__grid img {
     width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
+    height: 100%;
     object-fit: cover;
     transition: transform var(--dur) var(--ease);
   }
-  @media (max-width: 60rem) { .range-card__media img { aspect-ratio: 16 / 9; } }
-  .range-card:hover .range-card__media img { transform: scale(1.03); }
+  .showcase__grid a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 9, 8, 0.72) 0%, rgba(10, 9, 8, 0) 45%);
+    z-index: 1;
+  }
+  .showcase__grid span {
+    position: absolute;
+    left: var(--sp-3);
+    right: var(--sp-3);
+    bottom: var(--sp-3);
+    z-index: 2;
+    font-family: var(--font-display);
+    color: var(--paper);
+    font-size: var(--step-0);
+    letter-spacing: 0.01em;
+  }
+  .showcase__grid a:hover img,
+  .showcase__grid a:focus-visible img { transform: scale(1.04); }
+  .showcase__grid a:focus-visible { outline: 1px solid var(--kraft); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) {
-    .range-card:hover .range-card__media img { transform: none; }
+    .showcase__grid a:hover img,
+    .showcase__grid a:focus-visible img { transform: none; }
   }
-  .range-card__body { padding: var(--sp-4) var(--sp-3) var(--sp-3); }
-  .range-card h3 { font-size: var(--step-2); color: var(--paper); }
-  .range-card p { color: var(--text-on-ink-muted); font-size: var(--step--1); margin-top: var(--sp-2); }
-  .range-card__meta {
-    margin-top: var(--sp-3);
-    font-weight: 500;
-    font-size: var(--step--1);
-    color: var(--kraft);
-  }
-  .range-card__link {
-    display: inline-block;
-    margin-top: var(--sp-3);
-    font-weight: 600;
-    font-size: var(--step--1);
-  }
-  /* stretched link: the anchor's own ::after covers the whole card, so a click
-     anywhere on the card navigates to the range page */
-  .range-card__link::after { content: ""; position: absolute; inset: 0; }
 
   /* ---------- Capabilities strip ---------- */
   .caps { padding-block: var(--sp-5); border-block: 1px solid var(--line-paper); }
