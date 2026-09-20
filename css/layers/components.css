@@ -433,6 +433,7 @@
   .video-hero { background-color: var(--ink); }
   .video-hero__stage {
     position: relative;
+    width: 100%;
     aspect-ratio: 21 / 9;
     max-height: 65vh;
     border-block: 1px solid var(--kraft);
