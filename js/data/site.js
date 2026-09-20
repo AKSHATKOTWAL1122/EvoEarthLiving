@@ -17,7 +17,7 @@ export const SITE = {
   // normal. Client pastes their own deployed Web App URL here (setup steps in
   // specs/21-google-sheet-sync.md) to have every catalogue-gate submission
   // land as a row in a Google Sheet they own and control.
-  leadSheetWebhook: "",
+  leadSheetWebhook: "https://script.google.com/macros/s/AKfycbzF6okRrOBANEY8Ke5LDp78rjRbJq4ubHcx8hcNCHZ_qbU7I27riPd6dk43pOfmJmme/exec",
 
   // Prefilled messages
   waMessage:
