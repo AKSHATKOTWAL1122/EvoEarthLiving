@@ -166,10 +166,3 @@ export const PRODUCT_GROUPS = [
 ];
 
 export const groupById = (id) => PRODUCT_GROUPS.find((g) => g.id === id);
-
-// Short count line for the range cards, e.g. "7 kit types · 27 items"
-export const groupSummary = (g) => {
-  const subs = g.subcategories.length;
-  const items = g.subcategories.reduce((n, s) => n + s.items.length, 0);
-  return `${subs} ${subs === 1 ? "group" : "groups"} · ${items} items`;
-};

@@ -101,6 +101,11 @@ Client sent a full nav/homepage rework brief. Converted into specs
 - Two CTAs everywhere: **WhatsApp enquiry** (primary) and **Download catalogue**.
 - No contact form, no "book a call", no scheduling link. Nav's new "Contact Us" item
   (spec 01) is an anchor to the existing `#contact` section — not a new form/page.
+  **Scoped exception (2026-09-20, spec 20):** the catalogue download is gated
+  behind a short lead-capture form (name / organisation / email / phone,
+  Netlify Forms) before the PDF opens — this is a deliberate, narrow exception
+  to "no contact form," limited to catalogue-download gating. It does not
+  reopen the door to a general enquiry form or booking flow.
 - Header now also carries a persistent **phone + email strip** (desktop only; spec
   01) — additive to the two CTAs above, not a replacement. Clicking the header phone
   number opens WhatsApp (same mechanism as the CTA button), not a tel: dialer.
@@ -108,6 +113,8 @@ Client sent a full nav/homepage rework brief. Converted into specs
   evoearthliving@gmail.com (mailto only).
 - Catalogue download → stable path `/catalogue/evoearth-catalogue.pdf` (user overwrites the
   file to update; no code change). A compressed (<5 MB) PDF replaces the stub later.
+  Gated behind the spec 20 lead form — see above; the path itself is unchanged
+  and is still a public static file (UX gating only, no server-side access control).
 - Warehouses: Srinagar & Jammu, Jammu and Kashmir.
 
 ## Visual reference
@@ -143,10 +150,22 @@ Full review + per-item status in **`specs/REVIEW-kimirica.md`**. State:
 - Single host — the earlier GitHub Pages (`deploy.yml`, `.nojekyll`, `CNAME`) and
   Hostinger paths were dropped 2026-09-06.
 
+## Lead sync (2026-09-20, spec 21)
+Catalogue-gate submissions (spec 20) also fire a best-effort duplicate write
+to a client-owned Google Sheet, via a Google Apps Script Web App the client
+deploys themselves (their Google account, their sheet — nothing shared or
+hosted by us). Netlify Forms remains the record of truth; the sheet sync is
+additive and fails silently if unset/unreachable. Config: `SITE.
+leadSheetWebhook` in `js/data/site.js` (empty until the client supplies their
+`/exec` URL). Full setup steps + Apps Script code: `specs/21-google-sheet-sync.md`.
+
 ## Assets pending from client (placeholders ship first)
 Compressed catalogue PDF · vector logo (SVG) + small monochrome lockup/favicon ·
 real photography (brief + prompts in `specs/14-imagery.md`; drop into
 `assets/img/photos/{home,dry,wet,aroma}/`) · motion references (level + feel) ·
 trust-metric values · branded email decision · **Gifting bundle contents** (spec
 16) · **3 video files for the video hero** (spec 17) · **rest of the homepage
-brief** (spec 19 — brief was cut off after the category-showcase section).
+brief** (spec 19 — brief was cut off after the category-showcase section) ·
+**Apps Script Web App URL for their Google Sheet** (spec 21 — client creates
+the sheet + deploys the script per `specs/21-google-sheet-sync.md`, hands
+back the `/exec` URL for `SITE.leadSheetWebhook`).

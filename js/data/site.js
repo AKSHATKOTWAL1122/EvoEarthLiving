@@ -12,6 +12,13 @@ export const SITE = {
   cataloguePath: "/catalogue/evoearth-catalogue.pdf",
   locations: "Srinagar · Jammu, Jammu & Kashmir",
 
+  // Google Sheet lead sync (spec 21) — Apps Script Web App URL, one per client.
+  // Empty = sync skipped, catalogue-gate.js still submits to Netlify Forms as
+  // normal. Client pastes their own deployed Web App URL here (setup steps in
+  // specs/21-google-sheet-sync.md) to have every catalogue-gate submission
+  // land as a row in a Google Sheet they own and control.
+  leadSheetWebhook: "",
+
   // Prefilled messages
   waMessage:
     "Hi EvoEarth Living, I'd like to enquire about amenities for our property.",

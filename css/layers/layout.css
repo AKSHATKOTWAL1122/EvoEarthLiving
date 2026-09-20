@@ -45,8 +45,5 @@
   .prose > * + * { margin-top: var(--sp-4); }
   .prose { line-height: 1.66; }
 
-  .stack > * + * { margin-top: var(--sp-3); }
-  .stack-lg > * + * { margin-top: var(--sp-5); }
-
   main { display: block; }
 }

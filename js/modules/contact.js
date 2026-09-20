@@ -4,7 +4,10 @@
 // site.js so that file stays the single source of truth.
 //   [data-wa]         -> WhatsApp deep link
 //   [data-wa-msg]     -> optional custom prefilled message (overrides default)
-//   [data-catalogue]  -> catalogue PDF, opens in a new tab
+//   [data-catalogue]  -> opens the lead-capture gate (spec 20 / catalogue-gate.js);
+//                        this module only fills in the aria-label, it does not set
+//                        href/target/rel to the PDF — the real path is only used by
+//                        catalogue-gate.js after a successful form submission
 //   [data-call]       -> tel: link
 //   [data-email]      -> mailto: with prefilled subject/body
 //   [data-year]       -> current year text
@@ -25,9 +28,6 @@ export function initContact(root = document) {
   });
 
   root.querySelectorAll("[data-catalogue]").forEach((el) => {
-    setHref(el, SITE.cataloguePath);
-    el.target = "_blank";
-    el.rel = "noopener";
     if (!el.hasAttribute("aria-label")) {
       el.setAttribute("aria-label", `${(el.textContent || "Download catalogue").trim()} (PDF)`);
     }

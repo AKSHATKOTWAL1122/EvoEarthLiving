@@ -34,7 +34,10 @@ export function initVideoHero() {
 
     current = (index + slides.length) % slides.length;
     slides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
-    if (labelOut) labelOut.textContent = slides[current].dataset.videoLabel || "";
+    if (labelOut) {
+      const words = (slides[current].dataset.videoLabel || "").split(" ");
+      labelOut.innerHTML = words.map((word) => `<span>${word}</span>`).join("");
+    }
     if (copyOut) copyOut.textContent = slides[current].dataset.videoCopy || "";
 
     const incoming = videos[current];
