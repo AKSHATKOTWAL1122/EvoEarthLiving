@@ -73,15 +73,15 @@
   </style>
 
   <!-- Fetch the @layer files in parallel instead of discovering them serially through main.css. -->
-  <link rel="preload" href="/css/layers/reset.css?v=23" as="style">
-  <link rel="preload" href="/css/layers/fonts.css?v=23" as="style">
-  <link rel="preload" href="/css/layers/tokens.css?v=23" as="style">
-  <link rel="preload" href="/css/layers/base.css?v=23" as="style">
-  <link rel="preload" href="/css/layers/layout.css?v=23" as="style">
-  <link rel="preload" href="/css/layers/components.css?v=23" as="style">
-  <link rel="preload" href="/css/layers/utilities.css?v=23" as="style">
-  <link rel="stylesheet" href="/css/main.css?v=23">
-  <script type="module" src="/js/main.js?v=23"></script>
+  <link rel="preload" href="/css/layers/reset.css?v=24" as="style">
+  <link rel="preload" href="/css/layers/fonts.css?v=24" as="style">
+  <link rel="preload" href="/css/layers/tokens.css?v=24" as="style">
+  <link rel="preload" href="/css/layers/base.css?v=24" as="style">
+  <link rel="preload" href="/css/layers/layout.css?v=24" as="style">
+  <link rel="preload" href="/css/layers/components.css?v=24" as="style">
+  <link rel="preload" href="/css/layers/utilities.css?v=24" as="style">
+  <link rel="stylesheet" href="/css/main.css?v=24">
+  <script type="module" src="/js/main.js?v=24"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -97,7 +97,7 @@
           <li class="nav-home"><a href="/">EvoEarth Living</a></li>
 
           <li class="has-menu">
-            <button type="button" aria-expanded="false" aria-controls="menu-dry">Dry Amenities</button>
+            <a href="/products/dry-amenities.html" aria-expanded="false" aria-controls="menu-dry" aria-haspopup="true">Dry Amenities</a>
             <ul id="menu-dry" class="submenu submenu--photo">
               <li><a href="/products/dry-amenities.html#dental-kit"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Dental Kit</span></a></li>
               <li><a href="/products/dry-amenities.html#shaving-kit"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Shaving Kit</span></a></li>
@@ -110,7 +110,7 @@
           </li>
 
           <li class="has-menu">
-            <button type="button" aria-expanded="false" aria-controls="menu-wet">Wet Amenities</button>
+            <a href="/products/wet-amenities.html" aria-expanded="false" aria-controls="menu-wet" aria-haspopup="true">Wet Amenities</a>
             <ul id="menu-wet" class="submenu submenu--photo">
               <li><a href="/products/wet-amenities.html#soaps"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Soaps</span></a></li>
               <li><a href="/products/wet-amenities.html#hair-care"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Hair Care</span></a></li>
@@ -119,7 +119,7 @@
           </li>
 
           <li class="has-menu">
-            <button type="button" aria-expanded="false" aria-controls="menu-aroma">Aroma Essentials</button>
+            <a href="/products/aroma-essentials.html" aria-expanded="false" aria-controls="menu-aroma" aria-haspopup="true">Aroma Essentials</a>
             <ul id="menu-aroma" class="submenu submenu--photo">
               <li><a href="/products/aroma-essentials.html#reed-diffuser"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Reed Diffusers</span></a></li>
               <li><a href="/products/aroma-essentials.html#electric-diffuser"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Electric Diffusers</span></a></li>
@@ -129,7 +129,7 @@
           </li>
 
           <li class="has-menu">
-            <button type="button" aria-expanded="false" aria-controls="menu-gifting">Gifting</button>
+            <a href="/products/gifting.html" aria-expanded="false" aria-controls="menu-gifting" aria-haspopup="true">Gifting</a>
             <ul id="menu-gifting" class="submenu submenu--photo">
               <li><a href="/products/gifting.html#corporate-gifting"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Corporate Gifting</span></a></li>
               <li><a href="/products/gifting.html#hotel-gifting"><img src="/assets/img/placeholders/item.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span>Hotel Gifting</span></a></li>
@@ -202,6 +202,49 @@
         <button type="button" class="video-hero__nav video-hero__nav--next" data-video-next aria-label="Next video" hidden>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
+      </div>
+    </section>
+
+    <section class="showcase" aria-label="Shop by category" data-reveal>
+      <div class="container">
+        <ul class="showcase__grid">
+          <li>
+            <a href="/products/gifting.html">
+              <img src="/assets/img/placeholders/item.svg" alt="" width="480" height="480" loading="lazy" decoding="async">
+              <span>Luxury Gift Boxes</span>
+            </a>
+          </li>
+          <li>
+            <a href="/products/aroma-essentials.html#scented-candles">
+              <img src="/assets/img/placeholders/item.svg" alt="" width="480" height="480" loading="lazy" decoding="async">
+              <span>Scented Candles</span>
+            </a>
+          </li>
+          <li>
+            <a href="/products/aroma-essentials.html#reed-diffuser">
+              <img src="/assets/img/placeholders/item.svg" alt="" width="480" height="480" loading="lazy" decoding="async">
+              <span>Reed Diffusers</span>
+            </a>
+          </li>
+          <li>
+            <a href="/products/wet-amenities.html#soaps">
+              <img src="/assets/img/placeholders/item.svg" alt="" width="480" height="480" loading="lazy" decoding="async">
+              <span>Soaps</span>
+            </a>
+          </li>
+          <li>
+            <a href="/products/wet-amenities.html#face-body">
+              <img src="/assets/img/placeholders/item.svg" alt="" width="480" height="480" loading="lazy" decoding="async">
+              <span>Face and Body Care</span>
+            </a>
+          </li>
+          <li>
+            <a href="/products/aroma-essentials.html#room-freshener-spray">
+              <img src="/assets/img/placeholders/item.svg" alt="" width="480" height="480" loading="lazy" decoding="async">
+              <span>Room Fresheners</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
 

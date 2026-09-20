@@ -34,10 +34,21 @@ function initDropdowns(header) {
     const { wrap, btn, menu } = e;
     const items = () => [...menu.querySelectorAll("a")];
 
-    // Category buttons only toggle the photo menu — they don't navigate.
+    // Desktop: hover already reveals the photo menu, so a click on the
+    // category label just navigates to that category's page. Mobile has no
+    // hover — first tap opens the accordion, a second tap on the (now open)
+    // label follows the link.
     btn.addEventListener("click", (ev) => {
-      ev.preventDefault();
-      isOpen(e) ? close(e) : open(e);
+      if (!isMobile()) {
+        close(e);
+        return;
+      }
+      if (!isOpen(e)) {
+        ev.preventDefault();
+        open(e);
+      } else {
+        close(e);
+      }
     });
 
     let hoverTimer;
