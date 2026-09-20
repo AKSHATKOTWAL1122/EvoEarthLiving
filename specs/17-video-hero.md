@@ -1,11 +1,16 @@
 # Spec 17: Video Hero (3 clips, one-at-a-time, arrow-only)
 
-**Status:** built 2026-09-20, **revised twice same day**:
+**Status:** built 2026-09-20, **revised three times same day**:
 1. Original brief called for a 3-up row → changed to a full-width single-video
    stage, one clip at a time, auto-advance on end, prev/next arrows + dots.
-2. User then flagged it "looks like a video player" — removed everything but
-   a single next arrow: no native controls, no sound toggle, no dots, no prev.
+2. User flagged it "looks like a video player" — removed everything but a
+   single next arrow: no native controls, no sound toggle, no dots, no prev.
    Posters redrawn without a play-button icon (that was the biggest offender).
+3. User saw it as 3 stacked clips (turned out to be `evoearth.living` still
+   resolving to the old Hostinger placeholder, or a non-server preview where
+   `type="module"` scripts don't run) — made "one full-width clip, nothing
+   stacked" the plain-CSS default instead of something JS turns on, so it
+   can never regress to stacked even if JS fails to load or run.
 This is the current, final shape.
 **Appears on:** home, directly below the header/nav.
 **Depends on:** 00, 01
@@ -45,36 +50,42 @@ mapping now; real assets drop in later, same pattern as spec 14 photography.
   slide 3 → Aroma Essentials. Gifting has no slot yet.
 - The slide itself is a real `<a>` (whole body is the click target) so
   navigation works with or without JS.
-- **Base markup is the no-JS state**: 3 slides, block-stacked, each
-  `autoplay muted loop` — silent autoplay doesn't need a user gesture, so
-  browsers run it without any JS and **no `controls` are needed at all**.
-  `video-hero.js` adds `.js-carousel` to `[data-video-stage]`, which is what
-  turns this into the absolutely-positioned, single-slide stage and reveals
-  the next arrow (`display: none` until that class is present, since it does
-  nothing without JS).
+- **Single-slide layout is plain CSS, not something JS turns on.** Each
+  `.video-hero__slide` is absolutely positioned filling the stage; only the
+  one carrying `.is-active` (slide 1, in the markup, before any JS runs) is
+  `opacity: 1` / interactive. This means the "one full-width clip, nothing
+  stacked" look is the actual default — it can't regress to a stacked or
+  broken layout just because a script failed to load or `type="module"`
+  isn't supported in that context (e.g. a `file://` preview).
+- Only the active slide's `<video>` has `autoplay` in the markup (the other
+  two start with `preload="none"`, no autoplay) — no point spending bandwidth
+  autoplaying clips that are invisible without JS.
+- The next arrow ships `hidden` in the markup and is a JS-only feature —
+  `video-hero.js` un-hides it once it's actually wired up, so a no-JS visitor
+  is never shown a control that does nothing.
 
 ## Audio & autoplay
 Videos autoplay **muted** (browsers block autoplay-with-sound; muted-autoplay
-needs no user gesture, which is also what makes the no-JS fallback work). No
-sound control — matching "no user control except the next arrow," visitors
-who want sound go to the category page and use its own media if any exists.
+needs no user gesture, which is also what makes the no-JS single-clip default
+work). No sound control — matching "no user control except the next arrow,"
+visitors who want sound go to the category page.
 
 ## Behaviour (`video-hero.js`)
-- On init: adds `.js-carousel`, strips the `loop` attribute from every
-  `<video>` (loop restarts before `ended` fires, so it has to go for
-  auto-advance to work), shows slide 0.
+- On init: strips the `loop` attribute from every `<video>` (loop restarts
+  before `ended` fires, so it has to go for auto-advance to work), un-hides
+  the next arrow.
 - `ended` on the active `<video>` → advance to the next slide (wraps after the
   last). No fixed timer — the clip's own runtime paces the sequence.
 - The next-arrow calls the same `show(index)` the `ended` handler uses —
   pauses and rewinds the outgoing video, plays the incoming one (if in view
-  and motion is OK).
+  and motion is OK), sets its `preload` to `auto`.
 - IntersectionObserver on the stage: play the active video when ≥50% in view,
   pause when scrolled out (bandwidth/battery courtesy).
 - `prefers-reduced-motion: reduce` → never calls `.play()`; the next arrow
   still switches which poster/slide is showing, it just never starts
   playback.
-- No-JS fallback: see markup note above — 3 stacked, self-looping, silent
-  `<video>`s behind real links, zero chrome.
+- No-JS fallback: the CSS default above — one clip (Dry Amenities), autoplay
+  + loop, no arrow, real link.
 
 ## Visual design
 - Full-bleed width (edge to edge of the viewport, outside `.container`).
@@ -96,13 +107,11 @@ who want sound go to the category page and use its own media if any exists.
   `--kraft`/`--paper` tokens already in the palette.
 
 ## Performance
-- `poster` per video, `preload="metadata"` — the no-JS path autoplays all 3
-  independently so each needs enough preload to start; the JS path only ever
-  calls `.play()` on the active slide.
+- Only the active/first slide has `poster` + `autoplay`; the other two sit at
+  `preload="none"` until `show()` makes them active, so idle slides cost
+  nothing until they're actually needed.
 - Keep clips short (6–10s) and compressed — static site, no CDN video
-  pipeline; oversized files will hurt the performance budget (spec 11), and
-  the no-JS fallback autoplays all three regardless of scroll position, so
-  file size matters even more than usual here.
+  pipeline; oversized files will hurt the performance budget (spec 11).
 
 ## Open / pending
 - [ ] **Blocked on you:** the 3 actual video files. Posters are placeholder
@@ -111,13 +120,16 @@ who want sound go to the category page and use its own media if any exists.
 - [x] Autoplay-muted shipped as the default, no sound control by design.
 - [x] Mapping shipped as Dry / Wet / Aroma, in that order.
 - [x] One-at-a-time stage with auto-advance-on-end + a single next arrow,
-      no other player chrome — shipped 2026-09-20 after two revisions (3-up
-      row → prev/next/dots/sound carousel → arrow-only).
+      no other player chrome, single-slide layout as the plain-CSS default
+      (not JS-gated) — final shape shipped 2026-09-20 after three revisions
+      (3-up row → prev/next/dots/sound carousel → arrow-only → CSS-default
+      single slide so it can't regress to stacked without JS).
 
 ## Acceptance criteria
-- [x] Works with JS off (3 stacked, autoplay+loop, silent `<video>`s with
-      zero controls, real `<a>` navigation) — Playwright-verified with JS
-      requests blocked.
+- [x] Works with JS off (one clip — Dry Amenities — autoplay+loop, no
+      controls, no arrow, real `<a>` navigation; confirmed the other two
+      slides stay at `opacity: 0` / non-interactive) — Playwright-verified
+      with JS requests blocked.
 - [x] `prefers-reduced-motion` respected (no autoplay; next arrow still
       switches slides without ever calling `.play()`) — Playwright-verified.
 - [x] Auto-advances to the next slide when the active video's `ended` event
