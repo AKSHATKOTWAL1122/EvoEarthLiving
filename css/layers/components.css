@@ -995,14 +995,14 @@
     #menu-gifting { grid-template-columns: repeat(4, 1fr); width: calc(4 * 12.5rem + 3 * 0.8rem); }
 
     /* Column is a fixed 12.5rem here, minus .5rem padding each side on the
-       link = 11.5rem wide image before these trims. Width shaved more than
-       height so the box reads as a deliberate portrait rectangle, not a
+       link = 11.5rem wide image before these trims. Height shaved more than
+       width so the box reads as a deliberate landscape rectangle, not a
        square — image sits centered in the link (see align-items:center
        above). Mobile keeps the plain square (aspect-ratio), since its
        column width is fluid, not this fixed 12.5rem. */
     .submenu--photo img {
-      width: calc(11.5rem - 10mm);
-      height: calc(11.5rem - 5mm);
+      width: calc(11.5rem - 5mm);
+      height: calc(11.5rem - 10mm);
       aspect-ratio: auto;
     }
   }
