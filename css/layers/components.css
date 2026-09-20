@@ -435,7 +435,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 21 / 9;
-    max-height: calc(65vh + 152px);
+    max-height: calc(65vh + 167px);
     border-block: 1px solid var(--kraft);
   }
   .video-hero__slide {
