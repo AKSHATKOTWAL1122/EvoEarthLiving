@@ -19,7 +19,7 @@ wrote it. No adjective stacking ("premium / luxurious / exquisite / transcendent
 ## Structure
 Multi-page static site, no build step:
 - `index.html` — home (hero, video showcase, category showcase, about, product-range
-  overview, who we serve, ordering process, contact)
+  overview, who we serve, contact)
 - `products/dry-amenities.html`, `products/wet-amenities.html`,
   `products/aroma-essentials.html`, `products/gifting.html` (new — see spec 16)
 - **Nav (rewritten 2026-09-20, see spec 01):** 5 top-level items — Dry Amenities /
@@ -115,7 +115,7 @@ Client sent a full nav/homepage rework brief. Converted into specs
   file to update; no code change). A compressed (<5 MB) PDF replaces the stub later.
   Gated behind the spec 20 lead form — see above; the path itself is unchanged
   and is still a public static file (UX gating only, no server-side access control).
-- Warehouses: Srinagar & Jammu, Jammu and Kashmir.
+- Location: Delhi, India (changed 2026-10-20 from Srinagar & Jammu warehouses, client request). Single-sourced in `SITE.locations`.
 
 ## Visual reference
 - Client reference site: **kimirica.shop** (`References/Websites.txt`). Take the
@@ -125,7 +125,7 @@ Client sent a full nav/homepage rework brief. Converted into specs
 
 ## Improvement backlog (Kimirica review, 2026-09-06)
 Full review + per-item status in **`specs/REVIEW-kimirica.md`**. State:
-- **Done:** capabilities strip (spec 15, `#capabilities`), footer wholesale line,
+- **Done:** footer wholesale line,
   home range-cards (already wired Session 1), heading audit (no change needed),
   category build-out + editorial descriptors (already done Session 1).
 - **Blocked on client assets:** all photography (spec 14), range-card visual
@@ -133,6 +133,9 @@ Full review + per-item status in **`specs/REVIEW-kimirica.md`**. State:
 - **Deferred post-launch:** horizontal carousel for the Dry grid.
 - **Superseded 2026-09-20:** dropdown mega-menu imagery — no longer deferred, the
   client asked for it directly (specs 01, 16).
+- **Removed 2026-10-20 (client request):** capabilities strip (spec 15,
+  `#capabilities`) — markup + CSS deleted from home. Don't re-add.
+  Also "How ordering works" (spec 07, `#process`) + its footer links on all pages.
 - **Not taking:** pricing/cart/ratings, discount+urgency banners, all-caps
   labels, auto-carousels, Kimirica's light/cream palette (our dark field is the
   deliberate POV).

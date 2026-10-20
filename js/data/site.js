@@ -10,7 +10,7 @@ export const SITE = {
   email: "evoearthliving@gmail.com",
 
   cataloguePath: "/catalogue/evoearth-catalogue.pdf",
-  locations: "Srinagar · Jammu, Jammu & Kashmir",
+  locations: "Delhi, India",
 
   // Google Sheet lead sync (spec 21) — Apps Script Web App URL, one per client.
   // Empty = sync skipped, catalogue-gate.js still submits to Netlify Forms as
