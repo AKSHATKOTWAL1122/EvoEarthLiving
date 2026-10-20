@@ -668,7 +668,7 @@
     padding-left: var(--sp-3);
   }
 
-  .subcat { padding-block: var(--section-y); }
+  .subcat { padding-block: var(--section-y); color: var(--text-on-paper); }
   .subcat:nth-child(odd)  { background: var(--paper); }
   .subcat:nth-child(even) { background: var(--paper-2); }
   .subcat__head h2 { font-size: var(--step-2); }
